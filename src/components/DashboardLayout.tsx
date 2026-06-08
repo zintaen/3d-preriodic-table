@@ -30,7 +30,7 @@ export const DashboardLayout: React.FC = () => {
   const [atomViewMode, setAtomViewMode] = useState<'quantum' | 'bohr'>('bohr');
   const { protons } = useGameStore();
 
-  const toggleLang = () => i18n.changeLanguage(i18n.language === 'en' ? 'vi' : 'en');
+  const toggleLang = () => i18n.changeLanguage(i18n.resolvedLanguage === 'en' ? 'vi' : 'en');
   
   useEffect(() => {
     let active = true;
@@ -59,8 +59,8 @@ export const DashboardLayout: React.FC = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-ochre">
           {t('app.title')}
         </h1>
-        <button onClick={toggleLang} className="px-4 py-2 border border-white/20 rounded hover:bg-white/10 transition-colors">
-          {i18n.language === 'en' ? 'EN' : 'VI'}
+        <button onClick={toggleLang} className="px-4 py-2 border border-white/20 rounded hover:bg-white/10 transition-colors font-bold w-16">
+          {i18n.resolvedLanguage === 'en' ? 'VI' : 'EN'}
         </button>
       </header>
 
@@ -85,7 +85,7 @@ export const DashboardLayout: React.FC = () => {
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold flex items-center gap-2">
                   <Orbit size={20} className="text-ochre" />
-                  {t('panels.quantum_orbitals', 'Atom Viewer')}
+                  {t('panels.atom_viewer', 'Atom Viewer')}
                 </h2>
                 <div className="flex bg-black/40 rounded-full p-1 border border-white/10">
                   <button

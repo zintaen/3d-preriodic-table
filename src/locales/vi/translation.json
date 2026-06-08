@@ -1,6 +1,7 @@
 {
   "app": {
-    "title": "Bảng Tuần Hoàn 3D"
+    "title": "Bảng Tuần Hoàn 3D",
+    "properties": "Thuộc Tính"
   },
   "search": {
     "placeholder": "Tìm kiếm nguyên tố...",
@@ -8,7 +9,13 @@
   },
   "panels": {
     "molecule_viewer": "Trình Xem Phân Tử",
-    "quantum_orbitals": "O-bi-tan Lượng Tử"
+    "quantum_orbitals": "O-bi-tan Lượng Tử",
+    "atom_viewer": "Trình Xem Nguyên Tử",
+    "atom_builder": "Xây Dựng Nguyên Tử"
+  },
+  "view": {
+    "bohr": "Mô Hình Bohr",
+    "quantum": "Lượng Tử"
   },
   "properties": {
     "atomic_mass": "Khối Lượng Nguyên Tử",
@@ -17,9 +24,26 @@
     "year_discovered": "Năm Phát Hiện",
     "electron_config": "Cấu Hình Electron",
     "ionization_energy": "Năng Lượng Ion Hóa",
+    "atomic_number": "Số Hiệu Nguyên Tử",
+    "category": "Nhóm",
+    "did_you_know": "Bạn Có Biết?",
     "u": "u",
     "pm": "pm",
     "ev": "eV"
+  },
+  "atom": {
+    "protons": "Proton",
+    "neutrons": "S nơtron",
+    "electrons": "Electron",
+    "net_charge": "Điện Tích Thực",
+    "atomic_mass": "Khối Lượng Nguyên Tử",
+    "stability": "Độ Bền Vững",
+    "stable": "Bền",
+    "unstable": "Không Bền",
+    "reset": "Đặt lại",
+    "add_proton": "+ Proton",
+    "add_neutron": "+ Nơtron",
+    "add_electron": "+ Electron"
   },
   "categories": {
     "Nonmetal": "Phi kim",

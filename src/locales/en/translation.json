@@ -1,6 +1,7 @@
 {
   "app": {
-    "title": "3D Periodic Table"
+    "title": "3D Periodic Table",
+    "properties": "Properties"
   },
   "search": {
     "placeholder": "Search elements...",
@@ -8,7 +9,13 @@
   },
   "panels": {
     "molecule_viewer": "Molecule Viewer",
-    "quantum_orbitals": "Quantum Orbitals"
+    "quantum_orbitals": "Quantum Orbitals",
+    "atom_viewer": "Atom Viewer",
+    "atom_builder": "Atom Builder"
+  },
+  "view": {
+    "bohr": "Bohr Model",
+    "quantum": "Quantum"
   },
   "properties": {
     "atomic_mass": "Atomic Mass",
@@ -17,9 +24,26 @@
     "year_discovered": "Year Discovered",
     "electron_config": "Electron Config",
     "ionization_energy": "Ionization Energy",
+    "atomic_number": "Atomic Number",
+    "category": "Category",
+    "did_you_know": "Did You Know?",
     "u": "u",
     "pm": "pm",
     "ev": "eV"
+  },
+  "atom": {
+    "protons": "Protons",
+    "neutrons": "Neutrons",
+    "electrons": "Electrons",
+    "net_charge": "Net Charge",
+    "atomic_mass": "Atomic Mass",
+    "stability": "Stability",
+    "stable": "Stable",
+    "unstable": "Unstable",
+    "reset": "Reset",
+    "add_proton": "+ Proton",
+    "add_neutron": "+ Neutron",
+    "add_electron": "+ Electron"
   },
   "categories": {
     "Nonmetal": "Reactive Nonmetal",

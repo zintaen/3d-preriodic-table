@@ -29,6 +29,8 @@ export const getPeriod = (atomicNumber: number): number => {
   return 8; // Extended
 };
 
+import periodicTableData from '../data/periodictable.json';
+
 let cachedPeriodicTable: ElementData[] | null = null;
 const sdfCache = new Map<string, string>();
 
@@ -36,12 +38,8 @@ export const fetchPeriodicTable = async (): Promise<ElementData[]> => {
   if (cachedPeriodicTable) {
     return cachedPeriodicTable;
   }
-  const response = await fetch('/api/pubchem/periodictable/JSON');
-  if (!response.ok) {
-    throw new Error('Failed to fetch periodic table');
-  }
-  const json = await response.json();
-  const rows = json.Table.Row;
+  
+  const rows = periodicTableData.Table.Row;
   
   const parsed: ElementData[] = rows.map((row: any) => {
     const cells = row.Cell;
