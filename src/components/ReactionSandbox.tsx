@@ -3,6 +3,12 @@ import { GlassCard } from './GlassCard';
 import { checkReaction, type ReactionEffect, type ReactionResult } from '../services/reactions';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Droplet, Flame, Zap, Wind } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
+
+// Setup Supabase Client (optional)
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+const supabase = (supabaseUrl && supabaseKey) ? createClient(supabaseUrl, supabaseKey) : null;
 
 const availableReagents = [
   { id: 'Na', name: 'Sodium (Na)', type: 'element' },
@@ -21,27 +27,65 @@ export const ReactionSandbox: React.FC = () => {
   const [reagentA, setReagentA] = useState<string | null>(null);
   const [reagentB, setReagentB] = useState<string | null>(null);
   const [reaction, setReaction] = useState<ReactionResult | null>(null);
+  const [isEvaluating, setIsEvaluating] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSelect = (id: string) => {
     if (reaction) setReaction(null); // Reset if already reacted
+    setError(null);
 
     if (!reagentA) {
       setReagentA(id);
     } else if (!reagentB && id !== reagentA) {
       setReagentB(id);
-      triggerReaction(reagentA, id);
+      // Wait for user to click Simulate button instead of auto-triggering
     }
   };
 
-  const triggerReaction = (a: string, b: string) => {
-    const res = checkReaction(a, b);
-    setReaction(res);
+  const handleSimulate = async () => {
+    if (!reagentA || !reagentB) return;
+    setIsEvaluating(true);
+    setError(null);
+    setReaction(null);
+
+    try {
+      if (supabase) {
+        // AI-Powered Edge Function route
+        const { data, error: supaError } = await supabase.functions.invoke('gemini-reaction', {
+          body: { 
+            elements: [{ Symbol: reagentA }, { Symbol: reagentB }], 
+            conditions: { temperature: 298, pressure: 1.0 } 
+          }
+        });
+        
+        if (supaError) throw supaError;
+        
+        // Map the AI result to our ReactionResult format
+        const aiResult = data;
+        setReaction({
+          equation: `${reagentA} + ${reagentB} → ${aiResult.products.join(' + ') || 'No Reaction'}`,
+          description: aiResult.description,
+          effect: aiResult.exothermic ? 'explosion' : 'glow'
+        });
+      } else {
+        // Fallback to local rule-based engine
+        const res = checkReaction(reagentA, reagentB);
+        setReaction(res);
+      }
+    } catch (err: unknown) {
+      console.error(err);
+      const errorMessage = err instanceof Error ? err.message : String(err);
+      setError('Simulation failed: ' + errorMessage);
+    } finally {
+      setIsEvaluating(false);
+    }
   };
 
   const handleReset = () => {
     setReagentA(null);
     setReagentB(null);
     setReaction(null);
+    setError(null);
   };
 
   const renderEffect = (effect: ReactionEffect) => {
@@ -140,14 +184,28 @@ export const ReactionSandbox: React.FC = () => {
       {/* The Beaker */}
       <GlassCard className="p-4 lg:col-span-2 flex flex-col items-center justify-center relative overflow-hidden">
         
-        <div className="absolute top-4 right-4 z-20">
+        <div className="absolute top-4 right-4 z-20 flex gap-2">
+          <button 
+            onClick={handleSimulate}
+            disabled={!reagentA || !reagentB || isEvaluating}
+            className="px-4 py-2 bg-ochre hover:bg-ochre/90 disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded text-sm transition-all shadow-md flex items-center gap-2"
+          >
+            <Zap size={16} />
+            {isEvaluating ? 'Simulating...' : 'Simulate'}
+          </button>
           <button 
             onClick={handleReset}
             className="px-4 py-2 bg-red-500/80 hover:bg-red-500 text-white rounded text-sm font-bold transition-colors shadow-md"
           >
-            Clear Beaker
+            Clear
           </button>
         </div>
+
+        {error && (
+          <div className="absolute top-20 z-20 w-[90%] p-3 bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 rounded-xl text-sm font-bold border border-red-200 dark:border-red-500/30">
+            {error}
+          </div>
+        )}
 
         <div className="text-center mb-8 z-10">
           <h2 className="text-2xl font-black text-slate-800 dark:text-white mb-2">Reaction Beaker</h2>

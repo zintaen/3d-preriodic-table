@@ -25,7 +25,7 @@ const generateOrbitalPoints = (l: number, ml: number = 0, numPoints: number = 20
     const theta = Math.acos(z / r);
     const phi = Math.atan2(y, x);
 
-    let probability = 0;
+    let probability;
 
     // Approximate spherical harmonics |Y_l^m|^2 and radial function
     const radialSq = Math.exp(-r); // Simple exponential decay for density
@@ -37,7 +37,7 @@ const generateOrbitalPoints = (l: number, ml: number = 0, numPoints: number = 20
     else if (l === 1) {
       // p-orbital: lobes along axis
       // ml = 0 (pz), ml = 1 (px), ml = -1 (py)
-      let angular = 0;
+      let angular;
       if (ml === 0) angular = Math.cos(theta); // pz
       else if (ml === 1) angular = Math.sin(theta) * Math.cos(phi); // px
       else angular = Math.sin(theta) * Math.sin(phi); // py
@@ -46,7 +46,7 @@ const generateOrbitalPoints = (l: number, ml: number = 0, numPoints: number = 20
     }
     else if (l === 2) {
       // d-orbital (simplified approximations)
-      let angular = 0;
+      let angular;
       if (ml === 0) {
         // dz^2
         angular = 3 * Math.cos(theta) * Math.cos(theta) - 1;
@@ -61,7 +61,7 @@ const generateOrbitalPoints = (l: number, ml: number = 0, numPoints: number = 20
     }
     else {
       // f-orbital (very simplified aesthetic approximation for complex lobes)
-      let angular = 0;
+      let angular;
       if (ml === 0) angular = Math.cos(theta) * (5 * Math.cos(theta) * Math.cos(theta) - 3);
       else angular = Math.sin(theta) * Math.sin(theta) * Math.sin(theta) * Math.cos(3*phi); // one of the f shapes
       probability = angular * angular * radialSq * (r*r*r*r);

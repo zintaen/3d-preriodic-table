@@ -12,13 +12,14 @@ export interface MoleculeViewerProps {
 export const MoleculeViewer: React.FC<MoleculeViewerProps> = ({ sdfData, styleMode = 'stick', elementName }) => {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
-  const viewerRef = useRef<any>(null);
+  const viewerRef = useRef<ReturnType<typeof $3Dmol.createViewer> | null>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     // Instantiate viewer with transparent background
-    viewerRef.current = $3Dmol.createViewer(containerRef.current, {
+    viewerRef.current = $3Dmol.createViewer(container, {
       defaultcolors: $3Dmol.elementColors.rasmol,
       backgroundColor: '#f8fafc' // Light mode background
     });
@@ -29,8 +30,8 @@ export const MoleculeViewer: React.FC<MoleculeViewerProps> = ({ sdfData, styleMo
         viewerRef.current.clear();
         viewerRef.current = null;
       }
-      if (containerRef.current) {
-        containerRef.current.innerHTML = '';
+      if (container) {
+        container.innerHTML = '';
       }
     };
   }, []); // Only run once on mount

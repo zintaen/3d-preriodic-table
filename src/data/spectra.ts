@@ -18,7 +18,7 @@ export const famousSpectra: Record<number, number[]> = {
 
 // Pseudo-random generator for other elements
 const seededRandom = (seed: number) => {
-  let x = Math.sin(seed++) * 10000;
+  const x = Math.sin(seed) * 10000;
   return x - Math.floor(x);
 };
 
@@ -42,7 +42,7 @@ export const getSpectralLines = (atomicNumber: number): number[] => {
 
 // Convert wavelength to RGB (approximate algorithm)
 export const wavelengthToColor = (wavelength: number): string => {
-  let r = 0, g = 0, b = 0;
+  let r, g, b;
 
   if (wavelength >= 380 && wavelength < 440) {
     r = -(wavelength - 440) / (440 - 380);
@@ -75,7 +75,7 @@ export const wavelengthToColor = (wavelength: number): string => {
   }
 
   // Intensity falloff near vision limits
-  let factor = 0;
+  let factor;
   if (wavelength >= 380 && wavelength < 420) {
     factor = 0.3 + 0.7 * (wavelength - 380) / (420 - 380);
   } else if (wavelength >= 420 && wavelength < 700) {

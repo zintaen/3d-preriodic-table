@@ -47,7 +47,7 @@ export const fetchPeriodicTable = async (): Promise<ElementData[]> => {
   
   const rows = periodicTableData.Table.Row;
   
-  const parsed: ElementData[] = rows.map((row: any) => {
+  const parsed: ElementData[] = rows.map((row: { Cell: string[] }) => {
     const cells = row.Cell;
     const atomicNumber = parseInt(cells[0], 10);
     return {

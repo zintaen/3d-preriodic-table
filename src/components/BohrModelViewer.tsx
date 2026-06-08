@@ -21,6 +21,8 @@ const getSimpleShells = (z: number) => {
   return shells;
 };
 
+const randPos = () => [(Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5];
+
 const Nucleus = ({ protons }: { protons: number }) => {
   const meshRef = useRef<THREE.Group>(null);
   
@@ -31,30 +33,38 @@ const Nucleus = ({ protons }: { protons: number }) => {
     }
   });
 
-  // Render a clump of spheres to represent nucleus
-  const particles = [];
   // Cap visual particles to avoid lag for super heavy elements
   const visualProtons = Math.min(protons, 40); 
   const visualNeutrons = Math.min(protons, 40);
 
-  for (let i = 0; i < visualProtons; i++) {
-    particles.push(
-      <mesh key={`p-${i}`} position={[(Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5]}>
-        <sphereGeometry args={[0.3, 16, 16]} />
-        <meshPhongMaterial color="#ff3366" shininess={100} />
-      </mesh>
-    );
-  }
-  for (let i = 0; i < visualNeutrons; i++) {
-    particles.push(
-      <mesh key={`n-${i}`} position={[(Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5]}>
-        <sphereGeometry args={[0.3, 16, 16]} />
-        <meshPhongMaterial color="#3366ff" shininess={100} />
-      </mesh>
-    );
-  }
+  const particleData = React.useMemo(() => {
+    const pData = [];
+    const nData = [];
+    for (let i = 0; i < visualProtons; i++) {
+      pData.push(randPos());
+    }
+    for (let i = 0; i < visualNeutrons; i++) {
+      nData.push(randPos());
+    }
+    return { pData, nData };
+  }, [visualProtons, visualNeutrons]);
 
-  return <group ref={meshRef}>{particles}</group>;
+  return (
+    <group ref={meshRef}>
+      {particleData.pData.map((pos, i) => (
+        <mesh key={`p-${i}`} position={pos as [number, number, number]}>
+          <sphereGeometry args={[0.3, 16, 16]} />
+          <meshPhongMaterial color="#ff3366" shininess={100} />
+        </mesh>
+      ))}
+      {particleData.nData.map((pos, i) => (
+        <mesh key={`n-${i}`} position={pos as [number, number, number]}>
+          <sphereGeometry args={[0.3, 16, 16]} />
+          <meshPhongMaterial color="#3366ff" shininess={100} />
+        </mesh>
+      ))}
+    </group>
+  );
 };
 
 const ElectronShell = ({ radius, count, speedOffset }: { radius: number, count: number, speedOffset: number }) => {

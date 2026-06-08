@@ -40,7 +40,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   setElement: (atomicNumber) => {
     // A stable-ish baseline: Set protons = atomicNumber
     // Approximate neutrons to get a stable isotope, electrons = protons for neutral atom
-    let neutrons = 0;
+    let neutrons;
     if (atomicNumber === 1) neutrons = 0;
     else if (atomicNumber > 1 && atomicNumber <= 20) neutrons = atomicNumber;
     else neutrons = Math.round(atomicNumber * 1.5);

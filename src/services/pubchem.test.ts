@@ -15,24 +15,13 @@ describe('PubChem Service', () => {
     expect(getPeriod(118)).toBe(7);
   });
 
-  it('fetches periodic table and appends period', async () => {
-    globalThis.fetch = vi.fn().mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        Table: {
-          Row: [
-            { Cell: ["1", "H", "Hydrogen", "1.008", "FFFFFF", "1s1", "2.2", "120"] }
-          ]
-        }
-      })
-    });
-
+  it('fetches periodic table data', async () => {
     const data = await fetchPeriodicTable();
-    expect(globalThis.fetch).toHaveBeenCalledTimes(1);
-    expect(data.length).toBe(1);
-    expect(data[0].Symbol).toBe('H');
-    expect(data[0].Period).toBe(1);
-    expect(data[0].AtomicMass).toBe(1.008);
+    expect(data.length).toBeGreaterThan(0);
+    const hydrogen = data.find(d => d.Symbol === 'H');
+    expect(hydrogen).toBeDefined();
+    expect(hydrogen?.Period).toBe(1);
+    expect(hydrogen?.AtomicMass).toBe(1.008);
   });
 
   it('fetches compound SDF', async () => {
