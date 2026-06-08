@@ -26,7 +26,7 @@ export const ElementDetails: React.FC = () => {
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       key={protons}
-      className="flex flex-col h-full text-sm overflow-y-auto custom-scrollbar pr-2"
+      className="flex flex-col text-sm pr-2"
     >
       <div className="flex items-end gap-4 border-b border-white/20 pb-4 mb-4">
         <div className="text-5xl font-black text-ochre">{element.Symbol}</div>

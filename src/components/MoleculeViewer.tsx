@@ -20,7 +20,7 @@ export const MoleculeViewer: React.FC<MoleculeViewerProps> = ({ sdfData, styleMo
     // Instantiate viewer with transparent background
     viewerRef.current = $3Dmol.createViewer(containerRef.current, {
       defaultcolors: $3Dmol.elementColors.rasmol,
-      backgroundColor: 'rgba(0,0,0,0)'
+      backgroundColor: '#0f172a'
     });
 
     return () => {

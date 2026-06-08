@@ -73,7 +73,7 @@ export const DashboardLayout: React.FC = () => {
           </GlassCard>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <GlassCard className="p-4 flex-1">
+            <GlassCard className="p-4 flex flex-col h-full">
               <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
                 <Beaker size={20} className="text-ochre" />
                 {t('panels.molecule_viewer')} {element ? `- ${element.Name}` : ''}
@@ -81,7 +81,7 @@ export const DashboardLayout: React.FC = () => {
               <MoleculeViewer sdfData={sdfData} styleMode="stick" elementName={element?.Name} />
             </GlassCard>
             
-            <GlassCard className="p-4 h-96 flex flex-col">
+            <GlassCard className="p-4 flex flex-col h-full">
               <div className="flex justify-between items-center mb-4">
                 <h2 className="text-xl font-bold flex items-center gap-2">
                   <Orbit size={20} className="text-ochre" />
@@ -105,7 +105,7 @@ export const DashboardLayout: React.FC = () => {
                 </div>
               </div>
               
-              <div className="flex-1 relative rounded-xl overflow-hidden bg-black/40 border border-white/5 shadow-inner">
+              <div className="flex-1 relative rounded-xl overflow-hidden bg-black/40 border border-white/5 shadow-inner min-h-[300px]">
                 {atomViewMode === 'bohr' ? (
                   <BohrModelViewer protons={protons} />
                 ) : (
