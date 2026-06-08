@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/pubchem/:path*",
+      "destination": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

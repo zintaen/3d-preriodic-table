@@ -36,7 +36,7 @@ export const fetchPeriodicTable = async (): Promise<ElementData[]> => {
   if (cachedPeriodicTable) {
     return cachedPeriodicTable;
   }
-  const response = await fetch('https://pubchem.ncbi.nlm.nih.gov/rest/pug/periodictable/JSON');
+  const response = await fetch('/api/pubchem/periodictable/JSON');
   if (!response.ok) {
     throw new Error('Failed to fetch periodic table');
   }
@@ -74,7 +74,7 @@ export const fetchCompoundSDF = async (name: string): Promise<string> => {
   if (sdfCache.has(normalizedName)) {
     return sdfCache.get(normalizedName)!;
   }
-  const response = await fetch(`https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/name/${encodeURIComponent(normalizedName)}/SDF`);
+  const response = await fetch(`/api/pubchem/compound/name/${encodeURIComponent(normalizedName)}/SDF`);
   if (!response.ok) {
     throw new Error(`Failed to fetch SDF for ${name}`);
   }
