@@ -10,7 +10,7 @@ import { ElementDetails } from './ElementDetails';
 import { ReactionSandbox } from './ReactionSandbox';
 import { useGameStore } from '../store/gameStore';
 import { getElementByAtomicNumber, fetchCompoundSDF, type ElementData } from '../services/pubchem';
-import { Beaker, Orbit, Info, Activity, LayoutGrid, FlaskConical } from 'lucide-react';
+import { Beaker, Orbit, Info, Activity, LayoutGrid, FlaskConical, Sun, Moon } from 'lucide-react';
 
 // Helper to parse Electron Configuration string to (n, l)
 const parseElectronConfig = (config?: string) => {
@@ -32,9 +32,25 @@ export const DashboardLayout: React.FC = () => {
   const [element, setElement] = useState<ElementData | null>(null);
   const [atomViewMode, setAtomViewMode] = useState<'quantum' | 'bohr'>('bohr');
   const [activeTab, setActiveTab] = useState<TabType>('periodic_table');
+  const [isDark, setIsDark] = useState<boolean>(() => {
+    const saved = localStorage.getItem('theme');
+    return saved === 'dark';
+  });
   const { protons } = useGameStore();
 
   const toggleLang = () => i18n.changeLanguage(i18n.resolvedLanguage === 'en' ? 'vi' : 'en');
+  
+  const toggleTheme = () => setIsDark(prev => !prev);
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
   
   useEffect(() => {
     let active = true;
@@ -63,9 +79,18 @@ export const DashboardLayout: React.FC = () => {
         <h1 className="text-3xl md:text-4xl font-bold text-ochre drop-shadow-sm">
           {t('app.title')}
         </h1>
-        <button onClick={toggleLang} className="px-4 py-2 border border-slate-300 dark:border-white/20 rounded hover:bg-slate-200 dark:hover:bg-white/10 transition-colors font-bold w-16 text-slate-800 dark:text-white">
-          {i18n.resolvedLanguage === 'en' ? 'VI' : 'EN'}
-        </button>
+        <div className="flex items-center gap-2">
+          <button 
+            onClick={toggleTheme} 
+            className="p-2 border border-slate-300 dark:border-white/20 rounded hover:bg-slate-200 dark:hover:bg-white/10 transition-colors text-slate-800 dark:text-white"
+            title="Toggle Theme"
+          >
+            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+          <button onClick={toggleLang} className="px-4 py-2 border border-slate-300 dark:border-white/20 rounded hover:bg-slate-200 dark:hover:bg-white/10 transition-colors font-bold w-16 text-slate-800 dark:text-white">
+            {i18n.resolvedLanguage === 'en' ? 'VI' : 'EN'}
+          </button>
+        </div>
       </header>
 
       {/* Navigation Tabs */}
