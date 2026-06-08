@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore';
 import { getElementByAtomicNumber, type ElementData } from '../services/pubchem';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 export const ElementDetails: React.FC = () => {
   const { protons } = useGameStore();
   const [element, setElement] = useState<ElementData | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     getElementByAtomicNumber(protons).then(setElement).catch(console.error);
@@ -33,32 +35,32 @@ export const ElementDetails: React.FC = () => {
       <div className="grid grid-cols-2 gap-y-4 gap-x-2">
         <div>
           <div className="text-xs opacity-50">Category</div>
-          <div className="font-semibold capitalize text-white/90">{element.Category || 'Unknown'}</div>
+          <div className="font-semibold capitalize text-white/90">{element.Category ? t(`categories.${element.Category}`, element.Category) : t('categories.Unknown')}</div>
         </div>
         <div>
-          <div className="text-xs opacity-50">Atomic Mass</div>
-          <div className="font-semibold text-white/90">{element.AtomicMass} u</div>
+          <div className="text-xs opacity-50">{t('properties.atomic_mass')}</div>
+          <div className="font-semibold text-white/90">{element.AtomicMass} {t('properties.u')}</div>
         </div>
         <div className="col-span-2">
-          <div className="text-xs opacity-50">Electron Config</div>
+          <div className="text-xs opacity-50">{t('properties.electron_config')}</div>
           <div className="font-mono text-xs bg-black/20 p-1 rounded inline-block mt-1">
             {element.ElectronConfiguration || 'Unknown'}
           </div>
         </div>
         <div>
-          <div className="text-xs opacity-50">Electronegativity</div>
+          <div className="text-xs opacity-50">{t('properties.electronegativity')}</div>
           <div className="font-semibold text-white/90">{element.Electronegativity || 'N/A'}</div>
         </div>
         <div>
-          <div className="text-xs opacity-50">Atomic Radius</div>
-          <div className="font-semibold text-white/90">{element.AtomicRadius ? `${element.AtomicRadius} pm` : 'N/A'}</div>
+          <div className="text-xs opacity-50">{t('properties.atomic_radius')}</div>
+          <div className="font-semibold text-white/90">{element.AtomicRadius ? `${element.AtomicRadius} ${t('properties.pm')}` : 'N/A'}</div>
         </div>
         <div>
-          <div className="text-xs opacity-50">Ionization Energy</div>
-          <div className="font-semibold text-white/90">{element.IonizationEnergy ? `${element.IonizationEnergy} eV` : 'N/A'}</div>
+          <div className="text-xs opacity-50">{t('properties.ionization_energy')}</div>
+          <div className="font-semibold text-white/90">{element.IonizationEnergy ? `${element.IonizationEnergy} ${t('properties.ev')}` : 'N/A'}</div>
         </div>
         <div>
-          <div className="text-xs opacity-50">Year Discovered</div>
+          <div className="text-xs opacity-50">{t('properties.year_discovered')}</div>
           <div className="font-semibold text-white/90">{element.YearDiscovered || 'Ancient'}</div>
         </div>
       </div>

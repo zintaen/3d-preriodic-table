@@ -1,0 +1,46 @@
+{
+  "app": {
+    "title": "Bảng Tuần Hoàn 3D"
+  },
+  "search": {
+    "placeholder": "Tìm kiếm nguyên tố...",
+    "all_categories": "Tất cả các nhóm"
+  },
+  "panels": {
+    "molecule_viewer": "Trình Xem Phân Tử",
+    "quantum_orbitals": "O-bi-tan Lượng Tử"
+  },
+  "properties": {
+    "atomic_mass": "Khối Lượng Nguyên Tử",
+    "electronegativity": "Độ Âm Điện",
+    "atomic_radius": "Bán Kính Nguyên Tử",
+    "year_discovered": "Năm Phát Hiện",
+    "electron_config": "Cấu Hình Electron",
+    "ionization_energy": "Năng Lượng Ion Hóa",
+    "u": "u",
+    "pm": "pm",
+    "ev": "eV"
+  },
+  "categories": {
+    "Nonmetal": "Phi kim",
+    "Alkali Metal": "Kim loại kiềm",
+    "Alkaline Earth Metal": "Kim loại kiềm thổ",
+    "Transition Metal": "Kim loại chuyển tiếp",
+    "Post-transition Metal": "Kim loại yếu",
+    "Metalloid": "Á kim",
+    "Halogen": "Halogen",
+    "Noble Gas": "Khí hiếm",
+    "Lanthanide": "Họ Lantan",
+    "Actinide": "Họ Actini",
+    "Unknown": "Chưa rõ"
+  },
+  "messages": {
+    "no_structure": "Không có cấu trúc 3D cho nguyên tố {{element}}"
+  },
+  "layouts": {
+    "table": "Bảng",
+    "sphere": "Mặt cầu",
+    "helix": "Xoắn ốc",
+    "grid": "Khối lưới"
+  }
+}

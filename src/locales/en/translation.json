@@ -1,0 +1,46 @@
+{
+  "app": {
+    "title": "3D Periodic Table"
+  },
+  "search": {
+    "placeholder": "Search elements...",
+    "all_categories": "All Categories"
+  },
+  "panels": {
+    "molecule_viewer": "Molecule Viewer",
+    "quantum_orbitals": "Quantum Orbitals"
+  },
+  "properties": {
+    "atomic_mass": "Atomic Mass",
+    "electronegativity": "Electronegativity",
+    "atomic_radius": "Atomic Radius",
+    "year_discovered": "Year Discovered",
+    "electron_config": "Electron Config",
+    "ionization_energy": "Ionization Energy",
+    "u": "u",
+    "pm": "pm",
+    "ev": "eV"
+  },
+  "categories": {
+    "Nonmetal": "Reactive Nonmetal",
+    "Alkali Metal": "Alkali Metal",
+    "Alkaline Earth Metal": "Alkaline Earth Metal",
+    "Transition Metal": "Transition Metal",
+    "Post-transition Metal": "Post-transition Metal",
+    "Metalloid": "Metalloid",
+    "Halogen": "Halogen",
+    "Noble Gas": "Noble Gas",
+    "Lanthanide": "Lanthanide",
+    "Actinide": "Actinide",
+    "Unknown": "Unknown"
+  },
+  "messages": {
+    "no_structure": "No 3D structure available for elemental {{element}}"
+  },
+  "layouts": {
+    "table": "Table",
+    "sphere": "Sphere",
+    "helix": "Helix",
+    "grid": "Grid"
+  }
+}
