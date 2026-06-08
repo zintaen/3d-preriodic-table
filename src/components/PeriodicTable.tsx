@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Html } from '@react-three/drei';
 import * as THREE from 'three';
+import { TimelineSlider } from './TimelineSlider';
 
 type LayoutMode = 'table' | 'sphere' | 'helix' | 'grid';
 
@@ -91,6 +92,7 @@ export const PeriodicTable: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [layoutMode, setLayoutMode] = useState<LayoutMode>('table');
+  const [currentYear, setCurrentYear] = useState(2026);
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -101,7 +103,20 @@ export const PeriodicTable: React.FC = () => {
     const query = searchQuery.toLowerCase();
     const matchesSearch = el.Name.toLowerCase().includes(query) || el.Symbol.toLowerCase().includes(query) || el.AtomicNumber.toString().includes(query);
     const matchesCategory = activeCategory ? !!el.Category?.toLowerCase().includes(activeCategory.toLowerCase()) : true;
-    return matchesSearch && matchesCategory;
+    
+    let matchesTimeline = true;
+    if (el.YearDiscovered) {
+      if (el.YearDiscovered.toLowerCase() === 'ancient') {
+        matchesTimeline = true;
+      } else {
+        const year = parseInt(el.YearDiscovered, 10);
+        if (!isNaN(year)) {
+          matchesTimeline = year <= currentYear;
+        }
+      }
+    }
+    
+    return matchesSearch && matchesCategory && matchesTimeline;
   };
 
   // Compute Layout Positions
@@ -231,6 +246,8 @@ export const PeriodicTable: React.FC = () => {
           </group>
         </Canvas>
       </div>
+
+      <TimelineSlider currentYear={currentYear} setCurrentYear={setCurrentYear} />
     </div>
   );
 };

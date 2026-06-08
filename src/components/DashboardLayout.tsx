@@ -4,11 +4,12 @@ import { GlassCard } from './GlassCard';
 import { AtomBuilder } from './AtomBuilder';
 import { MoleculeViewer } from './MoleculeViewer';
 import { OrbitalViewer } from './OrbitalViewer';
+import { BohrModelViewer } from './BohrModelViewer';
 import { PeriodicTable } from './PeriodicTable';
 import { ElementDetails } from './ElementDetails';
 import { useGameStore } from '../store/gameStore';
 import { getElementByAtomicNumber, fetchCompoundSDF, type ElementData } from '../services/pubchem';
-import { Beaker, Orbit, Info } from 'lucide-react';
+import { Beaker, Orbit, Info, Activity } from 'lucide-react';
 
 // Helper to parse Electron Configuration string to (n, l)
 const parseElectronConfig = (config?: string) => {
@@ -26,6 +27,7 @@ export const DashboardLayout: React.FC = () => {
   const { t, i18n } = useTranslation();
   const [sdfData, setSdfData] = useState<string>('');
   const [element, setElement] = useState<ElementData | null>(null);
+  const [atomViewMode, setAtomViewMode] = useState<'quantum' | 'bohr'>('bohr');
   const { protons } = useGameStore();
 
   const toggleLang = () => i18n.changeLanguage(i18n.language === 'en' ? 'vi' : 'en');
@@ -79,13 +81,37 @@ export const DashboardLayout: React.FC = () => {
               <MoleculeViewer sdfData={sdfData} styleMode="stick" elementName={element?.Name} />
             </GlassCard>
             
-            <GlassCard className="p-4 h-96">
-              <h2 className="text-xl font-bold flex items-center gap-2 mb-4">
-                <Orbit size={20} className="text-ochre" />
-                {t('panels.quantum_orbitals')}
-              </h2>
-              {/* ml logic can be rotated on interval or fixed */}
-              <OrbitalViewer l={l} ml={0} />
+            <GlassCard className="p-4 h-96 flex flex-col">
+              <div className="flex justify-between items-center mb-4">
+                <h2 className="text-xl font-bold flex items-center gap-2">
+                  <Orbit size={20} className="text-ochre" />
+                  {t('panels.quantum_orbitals', 'Atom Viewer')}
+                </h2>
+                <div className="flex bg-black/40 rounded-full p-1 border border-white/10">
+                  <button
+                    onClick={() => setAtomViewMode('bohr')}
+                    className={`px-3 py-1 text-xs font-bold rounded-full transition-colors flex items-center gap-1 ${atomViewMode === 'bohr' ? 'bg-ochre text-slate-900 shadow' : 'text-white/60 hover:text-white'}`}
+                  >
+                    <Activity size={12} />
+                    {t('view.bohr', 'Bohr Model')}
+                  </button>
+                  <button
+                    onClick={() => setAtomViewMode('quantum')}
+                    className={`px-3 py-1 text-xs font-bold rounded-full transition-colors flex items-center gap-1 ${atomViewMode === 'quantum' ? 'bg-ochre text-slate-900 shadow' : 'text-white/60 hover:text-white'}`}
+                  >
+                    <Orbit size={12} />
+                    {t('view.quantum', 'Quantum')}
+                  </button>
+                </div>
+              </div>
+              
+              <div className="flex-1 relative rounded-xl overflow-hidden bg-black/40 border border-white/5 shadow-inner">
+                {atomViewMode === 'bohr' ? (
+                  <BohrModelViewer protons={protons} />
+                ) : (
+                  <OrbitalViewer l={l} ml={0} />
+                )}
+              </div>
             </GlassCard>
           </div>
         </div>

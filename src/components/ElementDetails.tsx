@@ -3,6 +3,8 @@ import { useGameStore } from '../store/gameStore';
 import { getElementByAtomicNumber, type ElementData } from '../services/pubchem';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
+import funFacts from '../data/funFacts.json';
+import { Lightbulb } from 'lucide-react';
 
 export const ElementDetails: React.FC = () => {
   const { protons } = useGameStore();
@@ -17,12 +19,14 @@ export const ElementDetails: React.FC = () => {
     return <div className="p-4 text-center opacity-50 animate-pulse">Loading Details...</div>;
   }
 
+  const fact = (funFacts as Record<string, string>)[protons.toString()];
+
   return (
     <motion.div 
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
       key={protons}
-      className="flex flex-col h-full text-sm"
+      className="flex flex-col h-full text-sm overflow-y-auto custom-scrollbar pr-2"
     >
       <div className="flex items-end gap-4 border-b border-white/20 pb-4 mb-4">
         <div className="text-5xl font-black text-ochre">{element.Symbol}</div>
@@ -32,7 +36,7 @@ export const ElementDetails: React.FC = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-y-4 gap-x-2">
+      <div className="grid grid-cols-2 gap-y-4 gap-x-2 mb-6">
         <div>
           <div className="text-xs opacity-50">Category</div>
           <div className="font-semibold capitalize text-white/90">{element.Category ? t(`categories.${element.Category}`, element.Category) : t('categories.Unknown')}</div>
@@ -64,6 +68,16 @@ export const ElementDetails: React.FC = () => {
           <div className="font-semibold text-white/90">{element.YearDiscovered || 'Ancient'}</div>
         </div>
       </div>
+
+      {fact && (
+        <div className="mt-auto bg-ochre/10 border border-ochre/30 rounded-lg p-4 flex gap-3 shadow-inner">
+          <Lightbulb className="text-ochre shrink-0" size={24} />
+          <div>
+            <div className="text-xs font-bold text-ochre uppercase tracking-wider mb-1">Did You Know?</div>
+            <div className="text-sm text-white/90 leading-relaxed">{fact}</div>
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 };
