@@ -66,7 +66,7 @@ export const PeriodicTable: React.FC = () => {
     return matchesSearch && matchesCategory;
   };
 
-  const renderElement = (el: ElementData) => {
+  const renderElement = (el: ElementData, isMainBlock: boolean) => {
     const group = getGroup(el.AtomicNumber);
     const period = el.Period;
     const active = protons === el.AtomicNumber;
@@ -84,7 +84,7 @@ export const PeriodicTable: React.FC = () => {
           ${!matched ? 'opacity-20 grayscale' : ''}
           ${active ? 'bg-ochre text-slate-900 border-ochre shadow-[0_0_15px_rgba(224,169,109,0.8)] z-10' : `${baseColor} hover:brightness-125`}
         `}
-        style={period && group ? { gridColumn: group, gridRow: period } : {}}
+        style={isMainBlock && period && group ? { gridColumn: group, gridRow: period } : {}}
       >
         <span className="absolute top-0.5 left-1 text-[8px] opacity-70">{el.AtomicNumber}</span>
         <strong className="text-base font-bold">{el.Symbol}</strong>
@@ -125,14 +125,14 @@ export const PeriodicTable: React.FC = () => {
       <div className="w-full overflow-x-auto pb-4 custom-scrollbar">
         <div className="min-w-[800px]">
           <div className="grid grid-cols-18 gap-1 mb-4" style={{ gridTemplateColumns: 'repeat(18, minmax(0, 1fr))' }}>
-            {mainBlock.map(renderElement)}
+            {mainBlock.map(e => renderElement(e, true))}
           </div>
           <div className="flex flex-col gap-1 ml-[16.666%]">
             <div className="grid grid-cols-15 gap-1" style={{ gridTemplateColumns: 'repeat(15, minmax(0, 1fr))' }}>
-              {lanthanides.map(renderElement)}
+              {lanthanides.map(e => renderElement(e, false))}
             </div>
             <div className="grid grid-cols-15 gap-1" style={{ gridTemplateColumns: 'repeat(15, minmax(0, 1fr))' }}>
-              {actinides.map(renderElement)}
+              {actinides.map(e => renderElement(e, false))}
             </div>
           </div>
         </div>
