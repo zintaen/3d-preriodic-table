@@ -20,11 +20,11 @@ export const AtomBuilder: React.FC = () => {
         {t('panels.atom_builder', 'Atom Builder')}
       </h2>
       
-      <div className="flex gap-4 mb-4">
-        <button onClick={addProton} className="px-4 py-2 bg-red-500/80 text-white rounded">{t('atom.add_proton')}</button>
-        <button onClick={addNeutron} className="px-4 py-2 bg-gray-500/80 text-white rounded">{t('atom.add_neutron')}</button>
-        <button onClick={addElectron} className="px-4 py-2 bg-blue-500/80 text-white rounded">{t('atom.add_electron')}</button>
-        <button onClick={reset} className="px-4 py-2 bg-black/50 text-white rounded ml-auto">{t('atom.reset')}</button>
+      <div className="flex flex-wrap gap-2 mb-4">
+        <button onClick={addProton} className="flex-1 min-w-[80px] px-2 py-2 bg-red-500/80 text-white rounded text-sm md:text-base whitespace-nowrap">{t('atom.add_proton')}</button>
+        <button onClick={addNeutron} className="flex-1 min-w-[80px] px-2 py-2 bg-gray-500/80 text-white rounded text-sm md:text-base whitespace-nowrap">{t('atom.add_neutron')}</button>
+        <button onClick={addElectron} className="flex-1 min-w-[80px] px-2 py-2 bg-blue-500/80 text-white rounded text-sm md:text-base whitespace-nowrap">{t('atom.add_electron')}</button>
+        <button onClick={reset} className="flex-none min-w-[70px] px-4 py-2 bg-black/50 text-white rounded text-sm md:text-base">{t('atom.reset')}</button>
       </div>
 
       <div className="grid grid-cols-2 gap-4">

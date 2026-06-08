@@ -3,7 +3,6 @@ import { useGameStore } from '../store/gameStore';
 import { getElementByAtomicNumber, type ElementData } from '../services/pubchem';
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
-import funFacts from '../data/funFacts.json';
 import { Lightbulb } from 'lucide-react';
 
 export const ElementDetails: React.FC = () => {
@@ -19,7 +18,7 @@ export const ElementDetails: React.FC = () => {
     return <div className="p-4 text-center opacity-50 animate-pulse">Loading Details...</div>;
   }
 
-  const fact = (funFacts as Record<string, string>)[protons.toString()];
+  const fact = t(`funFacts.${protons}`, { defaultValue: '' });
 
   return (
     <motion.div 

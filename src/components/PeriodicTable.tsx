@@ -4,7 +4,7 @@ import { useGameStore } from '../store/gameStore';
 import { Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Html } from '@react-three/drei';
+import { OrbitControls, Html, Environment, Stars, Sparkles, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import { TimelineSlider } from './TimelineSlider';
 
@@ -28,20 +28,22 @@ const getGroup = (z: number): number => {
   return 1;
 };
 
-const getCategoryColor = (cat?: string) => {
-  if (!cat) return 'bg-white/5 border-white/10 text-white/80';
+
+
+const get3DColor = (cat?: string) => {
+  if (!cat) return '#ffffff';
   const lcat = cat.toLowerCase();
-  if (lcat.includes('alkali metal')) return 'bg-red-500/20 border-red-500/30 text-red-200';
-  if (lcat.includes('alkaline earth')) return 'bg-orange-500/20 border-orange-500/30 text-orange-200';
-  if (lcat.includes('transition metal')) return 'bg-amber-500/20 border-amber-500/30 text-amber-200';
-  if (lcat.includes('post-transition')) return 'bg-teal-500/20 border-teal-500/30 text-teal-200';
-  if (lcat.includes('metalloid')) return 'bg-cyan-500/20 border-cyan-500/30 text-cyan-200';
-  if (lcat.includes('halogen')) return 'bg-green-500/20 border-green-500/30 text-green-200';
-  if (lcat.includes('noble gas')) return 'bg-blue-500/20 border-blue-500/30 text-blue-200';
-  if (lcat.includes('lanthanide')) return 'bg-indigo-500/20 border-indigo-500/30 text-indigo-200';
-  if (lcat.includes('actinide')) return 'bg-purple-500/20 border-purple-500/30 text-purple-200';
-  if (lcat.includes('nonmetal')) return 'bg-lime-500/20 border-lime-500/30 text-lime-200';
-  return 'bg-white/5 border-white/10 text-white/80';
+  if (lcat.includes('alkali metal')) return '#ef4444';
+  if (lcat.includes('alkaline earth')) return '#f97316';
+  if (lcat.includes('transition metal')) return '#f59e0b';
+  if (lcat.includes('post-transition')) return '#14b8a6';
+  if (lcat.includes('metalloid')) return '#06b6d4';
+  if (lcat.includes('halogen')) return '#22c55e';
+  if (lcat.includes('noble gas')) return '#3b82f6';
+  if (lcat.includes('lanthanide')) return '#6366f1';
+  if (lcat.includes('actinide')) return '#a855f7';
+  if (lcat.includes('nonmetal')) return '#84cc16';
+  return '#ffffff';
 };
 
 const uniqueCategories = [
@@ -59,27 +61,42 @@ interface ElementNodeProps {
 }
 
 const ElementNode: React.FC<ElementNodeProps> = ({ el, position, active, matched, onClick }) => {
-  const baseColor = getCategoryColor(el.Category);
+  const meshColor = get3DColor(el.Category);
   
   return (
     <group position={position}>
-      <Html transform distanceFactor={15} center>
+      <mesh onClick={onClick}>
+        <sphereGeometry args={[1.2, 32, 32]} />
+        <meshPhysicalMaterial 
+          color={meshColor} 
+          metalness={0.6} 
+          roughness={0.2} 
+          clearcoat={1.0}
+          clearcoatRoughness={0.1}
+          opacity={matched ? (active ? 1 : 0.6) : 0.05}
+          transparent={true}
+          emissive={meshColor}
+          emissiveIntensity={active ? 0.8 : 0.1}
+        />
+      </mesh>
+
+      <Html transform distanceFactor={15} center zIndexRange={[100, 0]}>
         <button
           onClick={onClick}
           className={`
-            relative flex flex-col items-center justify-center p-2 rounded-lg aspect-square border transition-all duration-500 hover:scale-110 hover:z-50
-            w-16 h-16 sm:w-24 sm:h-24
-            ${!matched ? 'opacity-20 grayscale' : 'opacity-100'}
-            ${active ? 'bg-ochre text-slate-900 border-ochre shadow-[0_0_30px_rgba(224,169,109,1)] z-10 scale-125' : `${baseColor} hover:brightness-125 backdrop-blur-sm`}
+            relative flex flex-col items-center justify-center p-2 rounded-full aspect-square transition-all duration-500 hover:scale-110 hover:z-50
+            w-16 h-16 sm:w-20 sm:h-20
+            ${!matched ? 'opacity-20 grayscale pointer-events-none' : 'opacity-100 cursor-pointer'}
+            ${active ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,1)] z-10 scale-125' : `text-white/90 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]`}
           `}
           style={{
             transformStyle: 'preserve-3d',
             backfaceVisibility: 'hidden',
           }}
         >
-          <span className="absolute top-1 left-2 text-[10px] opacity-70">{el.AtomicNumber}</span>
-          <strong className="text-2xl font-bold">{el.Symbol}</strong>
-          <span className="text-[10px] truncate w-full text-center opacity-80 mt-1">{el.Name}</span>
+          <span className="absolute top-2 left-3 text-[11px] font-bold opacity-90">{el.AtomicNumber}</span>
+          <strong className="text-3xl drop-shadow-md mt-2">{el.Symbol}</strong>
+          <span className="text-[10px] truncate w-full text-center opacity-90 font-medium">{el.Name}</span>
         </button>
       </Html>
     </group>
@@ -222,8 +239,13 @@ export const PeriodicTable: React.FC = () => {
 
       <div className="w-full h-[600px] relative rounded-xl overflow-hidden bg-slate-950/50 border border-white/5 shadow-inner">
         <Canvas camera={{ position: [0, 0, 45], fov: 50 }}>
-          <ambientLight intensity={0.5} />
-          <pointLight position={[10, 10, 10]} />
+          <ambientLight intensity={0.4} />
+          <pointLight position={[10, 10, 10]} intensity={2} />
+          
+          <Environment preset="city" />
+          <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
+          <Sparkles count={200} scale={40} size={2} speed={0.4} opacity={0.3} color="#ffffff" />
+
           <OrbitControls 
             enablePan={true} 
             enableZoom={true} 
@@ -232,18 +254,21 @@ export const PeriodicTable: React.FC = () => {
             autoRotateSpeed={0.5}
             makeDefault
           />
-          <group>
-            {elements.map((el) => (
-              <ElementNode
-                key={el.AtomicNumber}
-                el={el}
-                position={layoutPositions.get(el.AtomicNumber) || new THREE.Vector3()}
-                active={protons === el.AtomicNumber}
-                matched={isMatch(el)}
-                onClick={() => setElement(el.AtomicNumber)}
-              />
-            ))}
-          </group>
+          
+          <Float speed={1.5} rotationIntensity={0.1} floatIntensity={0.5}>
+            <group>
+              {elements.map((el) => (
+                <ElementNode
+                  key={el.AtomicNumber}
+                  el={el}
+                  position={layoutPositions.get(el.AtomicNumber) || new THREE.Vector3()}
+                  active={protons === el.AtomicNumber}
+                  matched={isMatch(el)}
+                  onClick={() => setElement(el.AtomicNumber)}
+                />
+              ))}
+            </group>
+          </Float>
         </Canvas>
       </div>
 
