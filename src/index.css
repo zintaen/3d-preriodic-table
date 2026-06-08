@@ -13,6 +13,6 @@
   body {
     font-family: var(--font-sans);
     color: var(--color-umber);
-    background-color: var(--color-slate-900);
+    background-color: var(--color-slate-50);
   }
 }

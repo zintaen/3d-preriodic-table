@@ -20,7 +20,7 @@ export const MoleculeViewer: React.FC<MoleculeViewerProps> = ({ sdfData, styleMo
     // Instantiate viewer with transparent background
     viewerRef.current = $3Dmol.createViewer(containerRef.current, {
       defaultcolors: $3Dmol.elementColors.rasmol,
-      backgroundColor: '#0f172a'
+      backgroundColor: '#f8fafc' // Light mode background
     });
 
     return () => {
@@ -64,9 +64,9 @@ export const MoleculeViewer: React.FC<MoleculeViewerProps> = ({ sdfData, styleMo
   const isValidData = sdfData && !sdfData.includes('<html');
 
   return (
-    <div className="w-full h-[400px] relative rounded-lg border border-white/5 bg-black/20 flex items-center justify-center">
+    <div className="w-full h-full min-h-[400px] relative rounded-lg border border-slate-200 dark:border-white/5 bg-slate-100 dark:bg-black/20 flex items-center justify-center">
       {!isValidData && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white/50 p-6 text-center z-10">
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-slate-500 dark:text-white/50 p-6 text-center z-10">
           <PackageOpen size={48} className="mb-4 opacity-50" />
           <p>{t('messages.no_structure', { element: elementName || 'Unknown' })}</p>
         </div>

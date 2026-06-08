@@ -19,7 +19,8 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    fallbackLng: 'en',
+    fallbackLng: 'vi',
+    lng: 'vi',
     load: 'languageOnly',
     interpolation: {
       escapeValue: false // react already safes from xss

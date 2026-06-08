@@ -4,6 +4,7 @@ import { getElementByAtomicNumber, type ElementData } from '../services/pubchem'
 import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { Lightbulb } from 'lucide-react';
+import { EmissionSpectrum } from './EmissionSpectrum';
 
 export const ElementDetails: React.FC = () => {
   const { protons } = useGameStore();
@@ -38,11 +39,11 @@ export const ElementDetails: React.FC = () => {
       <div className="grid grid-cols-2 gap-y-4 gap-x-2 mb-6">
         <div>
           <div className="text-xs opacity-50">{t('properties.category')}</div>
-          <div className="font-semibold capitalize text-white/90">{element.Category ? t(`categories.${element.Category}`, element.Category) : t('categories.Unknown')}</div>
+          <div className="font-semibold capitalize text-slate-800 dark:text-white/90">{element.Category ? t(`categories.${element.Category}`, element.Category) : t('categories.Unknown')}</div>
         </div>
         <div>
           <div className="text-xs opacity-50">{t('properties.atomic_mass')}</div>
-          <div className="font-semibold text-white/90">{element.AtomicMass} {t('properties.u')}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.AtomicMass} {t('properties.u')}</div>
         </div>
         <div className="col-span-2">
           <div className="text-xs opacity-50">{t('properties.electron_config')}</div>
@@ -52,20 +53,48 @@ export const ElementDetails: React.FC = () => {
         </div>
         <div>
           <div className="text-xs opacity-50">{t('properties.electronegativity')}</div>
-          <div className="font-semibold text-white/90">{element.Electronegativity || 'N/A'}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.Electronegativity || 'N/A'}</div>
         </div>
         <div>
           <div className="text-xs opacity-50">{t('properties.atomic_radius')}</div>
-          <div className="font-semibold text-white/90">{element.AtomicRadius ? `${element.AtomicRadius} ${t('properties.pm')}` : 'N/A'}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.AtomicRadius ? `${element.AtomicRadius} ${t('properties.pm')}` : 'N/A'}</div>
         </div>
         <div>
           <div className="text-xs opacity-50">{t('properties.ionization_energy')}</div>
-          <div className="font-semibold text-white/90">{element.IonizationEnergy ? `${element.IonizationEnergy} ${t('properties.ev')}` : 'N/A'}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.IonizationEnergy ? `${element.IonizationEnergy} ${t('properties.ev')}` : 'N/A'}</div>
+        </div>
+        <div>
+          <div className="text-xs opacity-50">{t('properties.electron_affinity')}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.ElectronAffinity ? `${element.ElectronAffinity} ${t('properties.ev')}` : 'N/A'}</div>
+        </div>
+        <div>
+          <div className="text-xs opacity-50">{t('properties.oxidation_states')}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.OxidationStates || 'N/A'}</div>
+        </div>
+        <div>
+          <div className="text-xs opacity-50">{t('properties.standard_state')}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.StandardState || 'N/A'}</div>
+        </div>
+        <div>
+          <div className="text-xs opacity-50">{t('properties.melting_point')}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.MeltingPoint ? `${element.MeltingPoint} ${t('properties.k')}` : 'N/A'}</div>
+        </div>
+        <div>
+          <div className="text-xs opacity-50">{t('properties.boiling_point')}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.BoilingPoint ? `${element.BoilingPoint} ${t('properties.k')}` : 'N/A'}</div>
+        </div>
+        <div>
+          <div className="text-xs opacity-50">{t('properties.density')}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.Density ? `${element.Density} ${t('properties.g_cm3')}` : 'N/A'}</div>
         </div>
         <div>
           <div className="text-xs opacity-50">{t('properties.year_discovered')}</div>
-          <div className="font-semibold text-white/90">{element.YearDiscovered || 'Ancient'}</div>
+          <div className="font-semibold text-slate-800 dark:text-white/90">{element.YearDiscovered || 'Ancient'}</div>
         </div>
+      </div>
+
+      <div className="mb-6">
+        <EmissionSpectrum atomicNumber={protons} />
       </div>
 
       {fact && (
@@ -73,7 +102,7 @@ export const ElementDetails: React.FC = () => {
           <Lightbulb className="text-ochre shrink-0" size={24} />
           <div>
             <div className="text-xs font-bold text-ochre uppercase tracking-wider mb-1">{t('properties.did_you_know')}</div>
-            <div className="text-sm text-white/90 leading-relaxed">{fact}</div>
+            <div className="text-sm text-slate-800 dark:text-white/90 leading-relaxed">{fact}</div>
           </div>
         </div>
       )}

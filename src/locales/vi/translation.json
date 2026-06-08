@@ -8,6 +8,8 @@
     "all_categories": "Tất cả các nhóm"
   },
   "panels": {
+    "periodic_table": "Bảng Tuần Hoàn",
+    "atom_lab": "Phòng Thí Nghiệm Nguyên Tử",
     "molecule_viewer": "Trình Xem Phân Tử",
     "quantum_orbitals": "O-bi-tan Lượng Tử",
     "atom_viewer": "Trình Xem Nguyên Tử",
@@ -24,12 +26,20 @@
     "year_discovered": "Năm Phát Hiện",
     "electron_config": "Cấu Hình Electron",
     "ionization_energy": "Năng Lượng Ion Hóa",
+    "electron_affinity": "Ái Lực Electron",
+    "oxidation_states": "Trạng Thái Oxi Hóa",
+    "standard_state": "Trạng Thái Tiêu Chuẩn",
+    "melting_point": "Nhiệt Độ Nóng Chảy",
+    "boiling_point": "Nhiệt Độ Sôi",
+    "density": "Khối Lượng Riêng",
     "atomic_number": "Số Hiệu Nguyên Tử",
     "category": "Nhóm",
     "did_you_know": "Bạn Có Biết?",
     "u": "u",
     "pm": "pm",
-    "ev": "eV"
+    "ev": "eV",
+    "k": "K",
+    "g_cm3": "g/cm³"
   },
   "atom": {
     "protons": "Proton",

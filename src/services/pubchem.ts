@@ -10,6 +10,12 @@ export interface ElementData {
   Category?: string;
   YearDiscovered?: string;
   IonizationEnergy?: number;
+  ElectronAffinity?: number;
+  OxidationStates?: string;
+  StandardState?: string;
+  MeltingPoint?: number;
+  BoilingPoint?: number;
+  Density?: number;
 }
 
 const PERIOD_BOUNDARIES = [
@@ -53,6 +59,12 @@ export const fetchPeriodicTable = async (): Promise<ElementData[]> => {
       Electronegativity: cells[6] ? parseFloat(cells[6]) : undefined,
       AtomicRadius: cells[7] ? parseFloat(cells[7]) : undefined,
       IonizationEnergy: cells[8] ? parseFloat(cells[8]) : undefined,
+      ElectronAffinity: cells[9] ? parseFloat(cells[9]) : undefined,
+      OxidationStates: cells[10] || undefined,
+      StandardState: cells[11] || undefined,
+      MeltingPoint: cells[12] ? parseFloat(cells[12]) : undefined,
+      BoilingPoint: cells[13] ? parseFloat(cells[13]) : undefined,
+      Density: cells[14] ? parseFloat(cells[14]) : undefined,
       Category: cells[15],
       YearDiscovered: cells[16],
       Period: getPeriod(atomicNumber)

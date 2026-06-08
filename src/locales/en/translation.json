@@ -8,6 +8,8 @@
     "all_categories": "All Categories"
   },
   "panels": {
+    "periodic_table": "Periodic Table",
+    "atom_lab": "Atom Laboratory",
     "molecule_viewer": "Molecule Viewer",
     "quantum_orbitals": "Quantum Orbitals",
     "atom_viewer": "Atom Viewer",
@@ -24,12 +26,20 @@
     "year_discovered": "Year Discovered",
     "electron_config": "Electron Config",
     "ionization_energy": "Ionization Energy",
+    "electron_affinity": "Electron Affinity",
+    "oxidation_states": "Oxidation States",
+    "standard_state": "Standard State",
+    "melting_point": "Melting Point",
+    "boiling_point": "Boiling Point",
+    "density": "Density",
     "atomic_number": "Atomic Number",
     "category": "Category",
     "did_you_know": "Did You Know?",
     "u": "u",
     "pm": "pm",
-    "ev": "eV"
+    "ev": "eV",
+    "k": "K",
+    "g_cm3": "g/cm³"
   },
   "atom": {
     "protons": "Protons",

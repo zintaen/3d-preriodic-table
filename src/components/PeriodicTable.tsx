@@ -4,7 +4,7 @@ import { useGameStore } from '../store/gameStore';
 import { Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Html, Environment, Stars, Sparkles, Float } from '@react-three/drei';
+import { OrbitControls, Html, Environment, Sparkles, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import { TimelineSlider } from './TimelineSlider';
 
@@ -69,14 +69,14 @@ const ElementNode: React.FC<ElementNodeProps> = ({ el, position, active, matched
         <sphereGeometry args={[1.2, 32, 32]} />
         <meshPhysicalMaterial 
           color={meshColor} 
-          metalness={0.6} 
+          metalness={0.4} 
           roughness={0.2} 
           clearcoat={1.0}
           clearcoatRoughness={0.1}
           opacity={matched ? (active ? 1 : 0.6) : 0.05}
           transparent={true}
           emissive={meshColor}
-          emissiveIntensity={active ? 0.8 : 0.1}
+          emissiveIntensity={active ? 0.6 : 0.05}
         />
       </mesh>
 
@@ -87,7 +87,7 @@ const ElementNode: React.FC<ElementNodeProps> = ({ el, position, active, matched
             relative flex flex-col items-center justify-center p-2 rounded-full aspect-square transition-all duration-500 hover:scale-110 hover:z-50
             w-16 h-16 sm:w-20 sm:h-20
             ${!matched ? 'opacity-20 grayscale pointer-events-none' : 'opacity-100 cursor-pointer'}
-            ${active ? 'text-white drop-shadow-[0_0_10px_rgba(255,255,255,1)] z-10 scale-125' : `text-white/90 hover:drop-shadow-[0_0_8px_rgba(255,255,255,0.8)]`}
+            ${active ? 'text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_10px_rgba(255,255,255,1)] z-10 scale-125' : 'text-slate-800 dark:text-white/90 hover:drop-shadow-md'}
           `}
           style={{
             transformStyle: 'preserve-3d',
@@ -95,7 +95,7 @@ const ElementNode: React.FC<ElementNodeProps> = ({ el, position, active, matched
           }}
         >
           <span className="absolute top-2 left-3 text-[11px] font-bold opacity-90">{el.AtomicNumber}</span>
-          <strong className="text-3xl drop-shadow-md mt-2">{el.Symbol}</strong>
+          <strong className="text-3xl drop-shadow-sm mt-2">{el.Symbol}</strong>
           <span className="text-[10px] truncate w-full text-center opacity-90 font-medium">{el.Name}</span>
         </button>
       </Html>
@@ -196,29 +196,29 @@ export const PeriodicTable: React.FC = () => {
   }, [elements, layoutMode]);
 
   if (elements.length === 0) {
-    return <div className="p-4 text-center text-white/50 animate-pulse">Loading 3D Periodic Table...</div>;
+    return <div className="p-4 text-center text-slate-500 animate-pulse">Loading 3D Periodic Table...</div>;
   }
 
   return (
     <div className="flex flex-col gap-4 h-full">
       <div className="flex flex-col md:flex-row gap-4 items-center justify-between mb-2">
         <div className="relative w-full md:w-64 z-10">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" size={16} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-white/40" size={16} />
           <input 
             type="text" 
             placeholder={t('search.placeholder')}
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full bg-black/40 border border-white/20 rounded-full py-2 pl-10 pr-4 text-sm text-white focus:outline-none focus:border-ochre shadow-lg backdrop-blur-md"
+            className="w-full bg-white/70 dark:bg-black/40 border border-slate-300 dark:border-white/20 rounded-full py-2 pl-10 pr-4 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-ochre shadow-sm dark:shadow-lg backdrop-blur-md"
           />
         </div>
 
-        <div className="flex bg-black/40 rounded-full p-1 border border-white/10 z-10">
+        <div className="flex bg-slate-200 dark:bg-black/40 rounded-full p-1 border border-slate-300 dark:border-white/10 z-10">
           {(['table', 'sphere', 'helix', 'grid'] as LayoutMode[]).map(mode => (
             <button
               key={mode}
               onClick={() => setLayoutMode(mode)}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${layoutMode === mode ? 'bg-ochre text-slate-900 shadow-md' : 'text-white/60 hover:text-white'}`}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all ${layoutMode === mode ? 'bg-ochre text-white shadow-md' : 'text-slate-500 dark:text-white/60 hover:text-slate-800 dark:hover:text-white'}`}
             >
               {t(`layouts.${mode}`, mode)}
             </button>
@@ -229,7 +229,7 @@ export const PeriodicTable: React.FC = () => {
           <select 
             value={activeCategory || ''}
             onChange={e => setActiveCategory(e.target.value || null)}
-            className="bg-black/40 border border-white/20 rounded-full py-2 px-4 text-sm text-white focus:outline-none focus:border-ochre shadow-lg backdrop-blur-md"
+            className="bg-white/70 dark:bg-black/40 border border-slate-300 dark:border-white/20 rounded-full py-2 px-4 text-sm text-slate-800 dark:text-white focus:outline-none focus:border-ochre shadow-sm dark:shadow-lg backdrop-blur-md"
           >
             <option value="">{t('search.all_categories')}</option>
             {uniqueCategories.map(cat => <option key={cat} value={cat}>{t(`categories.${cat}`, cat)}</option>)}
@@ -237,14 +237,13 @@ export const PeriodicTable: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-full h-[600px] relative rounded-xl overflow-hidden bg-slate-950/50 border border-white/5 shadow-inner">
+      <div className="flex-1 w-full relative rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-950/50 border border-slate-200 dark:border-white/5 shadow-inner">
         <Canvas camera={{ position: [0, 0, 45], fov: 50 }}>
-          <ambientLight intensity={0.4} />
-          <pointLight position={[10, 10, 10]} intensity={2} />
+          <ambientLight intensity={0.8} />
+          <pointLight position={[10, 10, 10]} intensity={1.5} />
           
-          <Environment preset="city" />
-          <Stars radius={100} depth={50} count={3000} factor={4} saturation={0} fade speed={1} />
-          <Sparkles count={200} scale={40} size={2} speed={0.4} opacity={0.3} color="#ffffff" />
+          <Environment preset="studio" />
+          <Sparkles count={150} scale={40} size={2} speed={0.4} opacity={0.5} color="#94a3b8" />
 
           <OrbitControls 
             enablePan={true} 
@@ -272,7 +271,9 @@ export const PeriodicTable: React.FC = () => {
         </Canvas>
       </div>
 
-      <TimelineSlider currentYear={currentYear} setCurrentYear={setCurrentYear} />
+      <div className="shrink-0">
+        <TimelineSlider currentYear={currentYear} setCurrentYear={setCurrentYear} />
+      </div>
     </div>
   );
 };
