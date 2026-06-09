@@ -73,7 +73,7 @@ export const VSEPRSandbox: React.FC = () => {
   return (
     <div className="flex flex-col md:flex-row gap-6 h-full">
       <div className="flex-1 min-h-[400px] relative bg-slate-100 dark:bg-black/40 rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
-        <Canvas camera={{ position: [3, 2, 3], fov: 45 }}>
+        <Canvas frameloop="demand" camera={{ position: [3, 2, 3], fov: 45 }}>
           <ambientLight intensity={0.6} />
           <directionalLight position={[5, 5, 5]} intensity={1} />
           <directionalLight position={[-5, -5, -5]} intensity={0.5} />

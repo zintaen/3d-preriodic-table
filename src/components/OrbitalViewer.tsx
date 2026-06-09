@@ -116,7 +116,7 @@ const PointCloudOrbital: React.FC<{ l: number; ml?: number }> = ({ l, ml = 0 }) 
 
 export const OrbitalViewer: React.FC<OrbitalViewerProps> = ({ l, ml = 0 }) => {
   return (
-    <Canvas camera={{ position: [0, 0, 8] }}>
+    <Canvas frameloop="demand" camera={{ position: [0, 0, 8] }}>
       <ambientLight intensity={0.2} />
       <OrbitControls autoRotate autoRotateSpeed={1} enableZoom={true} />
       <PointCloudOrbital l={l} ml={ml} />

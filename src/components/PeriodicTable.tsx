@@ -238,7 +238,7 @@ export const PeriodicTable: React.FC = () => {
       </div>
 
       <div className="flex-1 w-full relative rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-950/50 border border-slate-200 dark:border-white/5 shadow-inner">
-        <Canvas camera={{ position: [0, 0, 45], fov: 50 }}>
+        <Canvas frameloop="demand" camera={{ position: [0, 0, 45], fov: 50 }}>
           <ambientLight intensity={0.8} />
           <pointLight position={[10, 10, 10]} intensity={1.5} />
           

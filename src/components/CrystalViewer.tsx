@@ -82,7 +82,7 @@ export const CrystalViewer: React.FC<CrystalViewerProps> = ({
   const atomRadius = latticeType === 'SC' ? 0.2 : latticeType === 'BCC' ? 0.18 : 0.15;
 
   return (
-    <Canvas camera={{ position: [4, 3, 4], fov: 45 }}>
+    <Canvas frameloop="demand" camera={{ position: [4, 3, 4], fov: 45 }}>
       <ambientLight intensity={0.5} />
       <directionalLight position={[10, 10, 5]} intensity={1} />
       <directionalLight position={[-10, -10, -5]} intensity={0.5} />

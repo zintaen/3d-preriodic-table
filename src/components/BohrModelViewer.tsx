@@ -107,7 +107,7 @@ export const BohrModelViewer: React.FC<BohrModelViewerProps> = ({ protons }) => 
   const shells = getSimpleShells(protons);
 
   return (
-    <Canvas camera={{ position: [0, 6, 12], fov: 45 }}>
+    <Canvas frameloop="demand" camera={{ position: [0, 6, 12], fov: 45 }}>
       <ambientLight intensity={0.4} />
       <pointLight position={[10, 10, 10]} intensity={1.5} />
       <OrbitControls enableZoom={true} enablePan={false} autoRotate autoRotateSpeed={0.5} />
