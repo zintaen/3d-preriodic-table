@@ -13,6 +13,6 @@
 ### 📋 Actionable Tasks
 | ID | Priority | Status | Vector | Deep Technical Task Description & Expected Metric Delta |
 |---|---|---|---|---|
-| L1-1 | High | [IN-PROGRESS] | Frame Rendering Optimization | Add `frameloop="demand"` to all Canvas elements (Expect: Idle CPU drops to 0%) |
-| L1-2 | High | [TODO] | WebGL Draw Calls | Refactor BohrModelViewer arrays to `InstancedMesh` (Expect: Draw calls reduced from O(N) to O(1)) |
+| L1-1 | High | [DONE] | Frame Rendering Optimization | Add `frameloop="demand"` to all Canvas elements (Expect: Idle CPU drops to 0%) |
+| L1-2 | High | [IN-PROGRESS] | WebGL Draw Calls | Refactor BohrModelViewer arrays to `InstancedMesh` (Expect: Draw calls reduced from O(N) to O(1)) |
 | L1-3 | High | [TODO] | Memory Leak Prevention | Verify proper unmount disposal or implement R3F lifecycle cleanup (Expect: Stable JS Heap) |

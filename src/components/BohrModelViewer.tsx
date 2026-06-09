@@ -24,12 +24,15 @@ const getSimpleShells = (z: number) => {
 const randPos = () => [(Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5, (Math.random() - 0.5) * 1.5];
 
 const Nucleus = ({ protons }: { protons: number }) => {
-  const meshRef = useRef<THREE.Group>(null);
+  const groupRef = useRef<THREE.Group>(null);
+  const pMeshRef = useRef<THREE.InstancedMesh>(null);
+  const nMeshRef = useRef<THREE.InstancedMesh>(null);
+  const dummy = React.useMemo(() => new THREE.Object3D(), []);
   
   useFrame(({ clock }) => {
-    if (meshRef.current) {
-      meshRef.current.rotation.y = clock.elapsedTime * 0.2;
-      meshRef.current.rotation.x = clock.elapsedTime * 0.1;
+    if (groupRef.current) {
+      groupRef.current.rotation.y = clock.elapsedTime * 0.2;
+      groupRef.current.rotation.x = clock.elapsedTime * 0.1;
     }
   });
 
@@ -40,35 +43,52 @@ const Nucleus = ({ protons }: { protons: number }) => {
   const particleData = React.useMemo(() => {
     const pData = [];
     const nData = [];
-    for (let i = 0; i < visualProtons; i++) {
-      pData.push(randPos());
-    }
-    for (let i = 0; i < visualNeutrons; i++) {
-      nData.push(randPos());
-    }
+    for (let i = 0; i < visualProtons; i++) pData.push(randPos());
+    for (let i = 0; i < visualNeutrons; i++) nData.push(randPos());
     return { pData, nData };
   }, [visualProtons, visualNeutrons]);
 
+  React.useLayoutEffect(() => {
+    if (pMeshRef.current) {
+      particleData.pData.forEach((pos, i) => {
+        dummy.position.set(pos[0], pos[1], pos[2]);
+        dummy.updateMatrix();
+        pMeshRef.current!.setMatrixAt(i, dummy.matrix);
+      });
+      pMeshRef.current.instanceMatrix.needsUpdate = true;
+    }
+    if (nMeshRef.current) {
+      particleData.nData.forEach((pos, i) => {
+        dummy.position.set(pos[0], pos[1], pos[2]);
+        dummy.updateMatrix();
+        nMeshRef.current!.setMatrixAt(i, dummy.matrix);
+      });
+      nMeshRef.current.instanceMatrix.needsUpdate = true;
+    }
+  }, [particleData, dummy]);
+
   return (
-    <group ref={meshRef}>
-      {particleData.pData.map((pos, i) => (
-        <mesh key={`p-${i}`} position={pos as [number, number, number]}>
+    <group ref={groupRef}>
+      {visualProtons > 0 && (
+        <instancedMesh ref={pMeshRef} args={[undefined, undefined, visualProtons]}>
           <sphereGeometry args={[0.3, 16, 16]} />
           <meshPhongMaterial color="#ff3366" shininess={100} />
-        </mesh>
-      ))}
-      {particleData.nData.map((pos, i) => (
-        <mesh key={`n-${i}`} position={pos as [number, number, number]}>
+        </instancedMesh>
+      )}
+      {visualNeutrons > 0 && (
+        <instancedMesh ref={nMeshRef} args={[undefined, undefined, visualNeutrons]}>
           <sphereGeometry args={[0.3, 16, 16]} />
           <meshPhongMaterial color="#3366ff" shininess={100} />
-        </mesh>
-      ))}
+        </instancedMesh>
+      )}
     </group>
   );
 };
 
 const ElectronShell = ({ radius, count, speedOffset }: { radius: number, count: number, speedOffset: number }) => {
   const groupRef = useRef<THREE.Group>(null);
+  const meshRef = useRef<THREE.InstancedMesh>(null);
+  const dummy = React.useMemo(() => new THREE.Object3D(), []);
   
   useFrame(({ clock }) => {
     if (groupRef.current) {
@@ -78,18 +98,19 @@ const ElectronShell = ({ radius, count, speedOffset }: { radius: number, count: 
     }
   });
 
-  const electrons = [];
-  for (let i = 0; i < count; i++) {
-    const angle = (i / count) * Math.PI * 2;
-    const x = Math.cos(angle) * radius;
-    const z = Math.sin(angle) * radius;
-    electrons.push(
-      <mesh key={i} position={[x, 0, z]}>
-        <sphereGeometry args={[0.2, 16, 16]} />
-        <meshPhongMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.5} />
-      </mesh>
-    );
-  }
+  React.useLayoutEffect(() => {
+    if (meshRef.current && count > 0) {
+      for (let i = 0; i < count; i++) {
+        const angle = (i / count) * Math.PI * 2;
+        const x = Math.cos(angle) * radius;
+        const z = Math.sin(angle) * radius;
+        dummy.position.set(x, 0, z);
+        dummy.updateMatrix();
+        meshRef.current.setMatrixAt(i, dummy.matrix);
+      }
+      meshRef.current.instanceMatrix.needsUpdate = true;
+    }
+  }, [count, radius, dummy]);
 
   return (
     <group ref={groupRef}>
@@ -98,7 +119,12 @@ const ElectronShell = ({ radius, count, speedOffset }: { radius: number, count: 
         <torusGeometry args={[radius, 0.02, 16, 100]} />
         <meshBasicMaterial color="#ffffff" transparent opacity={0.15} />
       </mesh>
-      {electrons}
+      {count > 0 && (
+        <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
+          <sphereGeometry args={[0.2, 16, 16]} />
+          <meshPhongMaterial color="#00ffff" emissive="#00ffff" emissiveIntensity={0.5} />
+        </instancedMesh>
+      )}
     </group>
   );
 };
