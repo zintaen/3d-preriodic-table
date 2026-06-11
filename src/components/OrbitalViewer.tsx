@@ -2,6 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
+import { useTabActive } from '../hooks/useTabActive';
 
 export interface OrbitalViewerProps {
   l: number; // 0=s, 1=p, 2=d, 3=f
@@ -115,10 +116,12 @@ const PointCloudOrbital: React.FC<{ l: number; ml?: number }> = ({ l, ml = 0 }) 
 };
 
 export const OrbitalViewer: React.FC<OrbitalViewerProps> = ({ l, ml = 0 }) => {
+  const isTabActive = useTabActive();
+  
   return (
     <Canvas frameloop="demand" camera={{ position: [0, 0, 8] }}>
       <ambientLight intensity={0.2} />
-      <OrbitControls autoRotate autoRotateSpeed={1} enableZoom={true} />
+      <OrbitControls autoRotate={isTabActive} autoRotateSpeed={1} enableZoom={true} />
       <PointCloudOrbital l={l} ml={ml} />
     </Canvas>
   );

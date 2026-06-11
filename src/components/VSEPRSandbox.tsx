@@ -3,6 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Sphere, Cylinder } from '@react-three/drei';
 import * as THREE from 'three';
 import { GlassCard } from './GlassCard';
+import { useTabActive } from '../hooks/useTabActive';
 
 type VSEPRData = {
   name: string;
@@ -63,6 +64,7 @@ const getVSEPRData = (bp: number, lp: number): VSEPRData => {
 export const VSEPRSandbox: React.FC = () => {
   const [bp, setBp] = useState<number>(2);
   const [lp, setLp] = useState<number>(0);
+  const isTabActive = useTabActive();
 
   const data = useMemo(() => getVSEPRData(bp, lp), [bp, lp]);
 
@@ -115,7 +117,7 @@ export const VSEPRSandbox: React.FC = () => {
               );
             })}
           </group>
-          <OrbitControls autoRotate autoRotateSpeed={1.5} />
+          <OrbitControls autoRotate={isTabActive} autoRotateSpeed={1.5} />
         </Canvas>
       </div>
       

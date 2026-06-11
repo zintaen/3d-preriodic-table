@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Sphere, Cylinder } from '@react-three/drei';
 import * as THREE from 'three';
+import { useTabActive } from '../hooks/useTabActive';
 
 export type LatticeType = 'SC' | 'BCC' | 'FCC';
 
@@ -76,6 +77,7 @@ export const CrystalViewer: React.FC<CrystalViewerProps> = ({
   color = '#4ade80',
   size = 1
 }) => {
+  const isTabActive = useTabActive();
   const points = useMemo(() => generatePoints(latticeType), [latticeType]);
   const bonds = useMemo(() => generateBonds(points, latticeType), [points, latticeType]);
 
@@ -121,7 +123,7 @@ export const CrystalViewer: React.FC<CrystalViewerProps> = ({
         })}
       </group>
       
-      <OrbitControls enablePan={false} autoRotate autoRotateSpeed={1} />
+      <OrbitControls enablePan={false} autoRotate={isTabActive} autoRotateSpeed={1} />
     </Canvas>
   );
 };

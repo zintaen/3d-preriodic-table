@@ -23,7 +23,7 @@ const ORBITALS = [
 ];
 
 export const AtomBuilderGame: React.FC = () => {
-  const { protons } = useGameStore();
+  const protons = useGameStore(state => state.protons);
   const [element, setElement] = useState<ElementData | null>(null);
   
   // State: electrons placed per orbital

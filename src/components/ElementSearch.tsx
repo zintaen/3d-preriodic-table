@@ -10,7 +10,7 @@ export const ElementSearch: React.FC = () => {
   const [elements, setElements] = useState<ElementData[]>([]);
   const [isOpen, setIsOpen] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const { setElement } = useGameStore();
+  const setElement = useGameStore(state => state.setElement);
 
   useEffect(() => {
     fetchPeriodicTable().then(setElements).catch(console.error);

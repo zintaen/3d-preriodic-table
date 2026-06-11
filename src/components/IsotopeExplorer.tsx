@@ -5,7 +5,8 @@ import { GlassCard } from './GlassCard';
 import { Radio } from 'lucide-react';
 
 export const IsotopeExplorer: React.FC = () => {
-  const { protons, neutrons } = useGameStore();
+  const protons = useGameStore(state => state.protons);
+  const neutrons = useGameStore(state => state.neutrons);
   const isotopes = getIsotopesByProtons(protons);
 
   if (isotopes.length === 0) {

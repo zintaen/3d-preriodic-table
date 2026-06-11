@@ -4,9 +4,10 @@ import { useGameStore } from '../store/gameStore';
 import { Search } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Html, Environment, Sparkles, Float } from '@react-three/drei';
+import { OrbitControls, Text, Environment, Sparkles, Float } from '@react-three/drei';
 import * as THREE from 'three';
 import { TimelineSlider } from './TimelineSlider';
+import { useTabActive } from '../hooks/useTabActive';
 
 type LayoutMode = 'table' | 'sphere' | 'helix' | 'grid';
 
@@ -60,13 +61,14 @@ interface ElementNodeProps {
   onClick: () => void;
 }
 
+const sharedGeometry = new THREE.SphereGeometry(1.2, 32, 32);
+
 const ElementNode: React.FC<ElementNodeProps> = ({ el, position, active, matched, onClick }) => {
   const meshColor = get3DColor(el.Category);
   
   return (
     <group position={position}>
-      <mesh onClick={onClick}>
-        <sphereGeometry args={[1.2, 32, 32]} />
+      <mesh onClick={onClick} geometry={sharedGeometry}>
         <meshPhysicalMaterial 
           color={meshColor} 
           metalness={0.4} 
@@ -80,37 +82,59 @@ const ElementNode: React.FC<ElementNodeProps> = ({ el, position, active, matched
         />
       </mesh>
 
-      <Html transform distanceFactor={15} center zIndexRange={[100, 0]}>
-        <button
-          onClick={onClick}
-          className={`
-            relative flex flex-col items-center justify-center p-2 rounded-full aspect-square transition-all duration-500 hover:scale-110 hover:z-50
-            w-16 h-16 sm:w-20 sm:h-20
-            ${!matched ? 'opacity-20 grayscale pointer-events-none' : 'opacity-100 cursor-pointer'}
-            ${active ? 'text-white drop-shadow-[0_0_10px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0_10px_rgba(255,255,255,1)] z-10 scale-125' : 'text-slate-800 dark:text-white/90 hover:drop-shadow-md'}
-          `}
-          style={{
-            transformStyle: 'preserve-3d',
-            backfaceVisibility: 'hidden',
-          }}
-        >
-          <span className="absolute top-2 left-3 text-[11px] font-bold opacity-90">{el.AtomicNumber}</span>
-          <strong className="text-3xl drop-shadow-sm mt-2">{el.Symbol}</strong>
-          <span className="text-[10px] truncate w-full text-center opacity-90 font-medium">{el.Name}</span>
-        </button>
-      </Html>
+      {matched && (
+        <group position={[0, 0, 1.25]} scale={active ? 1.2 : 1}>
+          <Text
+            position={[-0.6, 0.6, 0]}
+            fontSize={0.3}
+            color={active ? 'white' : 'black'}
+            anchorX="center"
+            anchorY="middle"
+            outlineWidth={0.02}
+            outlineColor="white"
+          >
+            {el.AtomicNumber}
+          </Text>
+          <Text
+            position={[0, 0, 0]}
+            fontSize={1}
+            fontWeight="bold"
+            color={active ? 'white' : 'black'}
+            anchorX="center"
+            anchorY="middle"
+            outlineWidth={0.03}
+            outlineColor="white"
+          >
+            {el.Symbol}
+          </Text>
+          <Text
+            position={[0, -0.6, 0]}
+            fontSize={0.25}
+            color={active ? 'white' : 'black'}
+            anchorX="center"
+            anchorY="middle"
+            outlineWidth={0.01}
+            outlineColor="white"
+            maxWidth={2}
+          >
+            {el.Name}
+          </Text>
+        </group>
+      )}
     </group>
   );
 };
 
 export const PeriodicTable: React.FC = () => {
   const [elements, setElements] = useState<ElementData[]>([]);
-  const { protons, setElement } = useGameStore();
+  const protons = useGameStore(state => state.protons);
+  const setElement = useGameStore(state => state.setElement);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const [layoutMode, setLayoutMode] = useState<LayoutMode>('table');
   const [currentYear, setCurrentYear] = useState(2026);
   const { t } = useTranslation();
+  const isTabActive = useTabActive();
 
   useEffect(() => {
     fetchPeriodicTable().then(setElements).catch(console.error);
@@ -249,7 +273,7 @@ export const PeriodicTable: React.FC = () => {
             enablePan={true} 
             enableZoom={true} 
             enableRotate={true}
-            autoRotate={layoutMode === 'sphere' || layoutMode === 'helix'}
+            autoRotate={isTabActive && (layoutMode === 'sphere' || layoutMode === 'helix')}
             autoRotateSpeed={0.5}
             makeDefault
           />

@@ -4,10 +4,24 @@ import { motion } from 'framer-motion';
 import { GlassCard } from './GlassCard';
 import { Atom } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { useShallow } from 'zustand/react/shallow';
 
 export const AtomBuilder: React.FC = () => {
-  const { protons, neutrons, electrons, addProton, addNeutron, addElectron, reset, getNetCharge, getAtomicMass, isStable } = useGameStore();
   const { t } = useTranslation();
+  const { protons, neutrons, electrons, addProton, addNeutron, addElectron, reset, getNetCharge, getAtomicMass, isStable } = useGameStore(
+    useShallow(state => ({
+      protons: state.protons,
+      neutrons: state.neutrons,
+      electrons: state.electrons,
+      addProton: state.addProton,
+      addNeutron: state.addNeutron,
+      addElectron: state.addElectron,
+      reset: state.reset,
+      getNetCharge: state.getNetCharge,
+      getAtomicMass: state.getAtomicMass,
+      isStable: state.isStable
+    }))
+  );
 
   const charge = getNetCharge();
   const chargeStr = charge > 0 ? `+${charge}` : charge < 0 ? `${charge}` : '0';

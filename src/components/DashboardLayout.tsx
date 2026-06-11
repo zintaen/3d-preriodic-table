@@ -43,7 +43,7 @@ export const DashboardLayout: React.FC = () => {
     const saved = localStorage.getItem('theme');
     return saved === 'dark';
   });
-  const { protons } = useGameStore();
+  const protons = useGameStore(state => state.protons);
 
   const toggleLang = () => i18n.changeLanguage(i18n.resolvedLanguage === 'en' ? 'vi' : 'en');
   

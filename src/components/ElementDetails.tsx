@@ -7,7 +7,7 @@ import { Lightbulb } from 'lucide-react';
 import { EmissionSpectrum } from './EmissionSpectrum';
 
 export const ElementDetails: React.FC = () => {
-  const { protons } = useGameStore();
+  const protons = useGameStore(state => state.protons);
   const [element, setElement] = useState<ElementData | null>(null);
   const { t } = useTranslation();
 

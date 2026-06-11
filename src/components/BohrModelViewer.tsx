@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
 import * as THREE from 'three';
+import { useTabActive } from '../hooks/useTabActive';
 
 export interface BohrModelViewerProps {
   protons: number;
@@ -130,13 +131,14 @@ const ElectronShell = ({ radius, count, speedOffset }: { radius: number, count: 
 };
 
 export const BohrModelViewer: React.FC<BohrModelViewerProps> = ({ protons }) => {
+  const isTabActive = useTabActive();
   const shells = getSimpleShells(protons);
 
   return (
     <Canvas frameloop="demand" camera={{ position: [0, 6, 12], fov: 45 }}>
       <ambientLight intensity={0.4} />
       <pointLight position={[10, 10, 10]} intensity={1.5} />
-      <OrbitControls enableZoom={true} enablePan={false} autoRotate autoRotateSpeed={0.5} />
+      <OrbitControls enableZoom={true} enablePan={false} autoRotate={isTabActive} autoRotateSpeed={0.5} />
       
       <Nucleus protons={protons} />
       
