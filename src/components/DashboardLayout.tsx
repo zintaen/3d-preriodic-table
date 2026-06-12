@@ -40,7 +40,8 @@ export const DashboardLayout: React.FC = () => {
   const [latticeType, setLatticeType] = useState<LatticeType>('BCC');
   const [activeTab, setActiveTab] = useState<TabType>('periodic_table');
   const [isDark, setIsDark] = useState<boolean>(() => {
-    const saved = localStorage.getItem('theme');
+    // Guard: localStorage is absent in non-browser/test (and SSR) contexts (audit L1-T1).
+    const saved = typeof localStorage !== 'undefined' ? localStorage.getItem('theme') : null;
     return saved === 'dark';
   });
   const protons = useGameStore(state => state.protons);
@@ -52,10 +53,11 @@ export const DashboardLayout: React.FC = () => {
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+    }
+    if (typeof localStorage !== 'undefined') {
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
     }
   }, [isDark]);
   
