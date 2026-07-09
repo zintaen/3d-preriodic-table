@@ -9,3 +9,9 @@
 | FR-WEB-005 | Gamified Sandbox | done | MUST | FR-WEB-003, FR-WEB-004 | FR-WEB-006 |
 | FR-WEB-006 | UI and Design System | done | MUST | FR-WEB-001, FR-WEB-005 | none |
 `
+
+## Conventions (CyberOS)
+
+One backlog for both classes: rows are `- [status] FR-ID-slug - title`;
+`class: improvement` rows carry an `(improvement)` suffix, product rows are untagged.
+FR frontmatter `status` is the record of truth; this file is the index.

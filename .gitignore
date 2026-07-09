@@ -24,4 +24,6 @@ dist-ssr
 *.sw?
 
 # CyberOS Agent Memory
-.cyberos-memory/
+
+# CyberOS vendored machine + local BRAIN at .cyberos/memory/store (regenerable via init; tenant data). Do not commit.
+.cyberos/
