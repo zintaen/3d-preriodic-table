@@ -1,0 +1,12 @@
+# Audit identity — runner mode (protocol stays in code-audit-framework).
+config:
+  TECH_STACK: TypeScript / Vite / React / Three.js / Vitest
+  PROJECT_PURPOSE: Interactive 3D periodic table for learning element properties
+  MODE: gated
+  LOOP_BUDGET: 2
+  DEPTH: standard
+  SEVERITY_FLOOR: High
+  PROTECTED_AREAS: src/data/
+  RUN_COMMANDS: npm run lint; npm run test; npm run build
+  DOMAIN_NOTES: Element data in src/data/ is reference content — rendering and interaction code may change, the data must not
+  BENCHMARK_MODE: none
