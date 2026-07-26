@@ -8,91 +8,14 @@
 <link rel="stylesheet" href="assets/status.css">
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 </head>
-<body data-template-id="status-hub@2">
-<a class="skip" href="#lens">Skip to content</a>
+<body data-template-id="status-hub@3" data-theme="paper">
+<a class="skip" href="#pulse">Skip to content</a>
+<p class="sr-only">VERSION <span class="code">unversioned</span> · built from <span class="code">fp-a947b905019b</span> · 6 tasks · 1 releases</p>
 
-<header class="hd">
-  <div class="wrap hd-in">
-    <div class="hd-id">
-      <span class="hd-mark" aria-hidden="true">3</span>
-      <div>
-        <h1>3d-preriodic-table status</h1>
-        <p class="hd-sub">Where 3d-preriodic-table is and what is coming — generated from task frontmatter, CHANGELOG and VERSION</p>
-      </div>
-    </div>
-    <div class="hd-side">
-      <p class="hd-meta">VERSION <span class="code">unversioned</span> · built from <span class="code">d244c7f6a348</span> · 6 tasks · 1 releases</p>
-      <button id="theme" class="btn ghost" type="button" title="Toggle light / dark" aria-label="Toggle light / dark">◐</button>
-    </div>
-  </div>
-</header>
-
-<main class="wrap">
-  <section class="deck" aria-label="Project pulse">
-<div class="panel">
-  <h2>Overall progress · 6 tasks · 1 modules</h2>
-  <div class="kpis">
-    <button class="kpi" type="button" data-bucket="done" title="Filter to done"><b>0</b><span><i class="dot seg-done"></i>done</span></button>
-    <button class="kpi" type="button" data-bucket="active" title="Filter to in flight"><b>6</b><span><i class="dot seg-active"></i>in flight</span></button>
-    <button class="kpi" type="button" data-bucket="todo" title="Filter to draft"><b>0</b><span><i class="dot seg-todo"></i>draft</span></button>
-    <button class="kpi" type="button" data-bucket="hold" title="Filter to on hold"><b>0</b><span><i class="dot seg-hold"></i>on hold</span></button>
-    <div class="kpi"><b>27</b><span>open effort (h)</span></div>
-  </div>
-  <div class="bar-seg">
-    <i class="seg-done" style="width:0.0%" title="done 0"></i>
-    <i class="seg-active" style="width:100.0%" title="in flight 6"></i>
-    <i class="seg-hold" style="width:0.0%" title="on hold 0"></i>
-  </div>
-  <div class="legend">
-    <span><i class="dot seg-done"></i> done / closed (0.0%)</span>
-    <span><i class="dot seg-active"></i> in flight — ready_to_implement → testing</span>
-    <span><i class="dot seg-todo"></i> draft</span>
-    <span><i class="dot seg-hold"></i> on hold</span>
-    <span class="muted">click a number to filter · click any task to open it</span>
-  </div>
-</div>
-<div class="panel">
-  <h2>Releases · 1 · latest v0.1.0</h2>
-  <div class="spark"><a href="#timeline" title="v0.1.0 · 2026-07-12 — 0 tasks"><b>0</b><i style="height:4px"></i><span>0.1.0</span></a></div>
-  <p class="relnote">tasks bound to each release — cited in the entry, or matched by <code>shipped:</code> date.</p>
-</div></section>
-
-  
-<section class="now">
-  <h2>Now shipping (6)</h2>
-  <div class="tasks"><button class="chip active" data-task="TASK-WEB-001" title="TASK-WEB-001 — Project Scaffold and Tech Stack Initialization [ready_to_implement]">WEB-001</button><button class="chip active" data-task="TASK-WEB-002" title="TASK-WEB-002 — PubChem PUG REST API Integration for Chemical Data [ready_to_implement]">WEB-002</button><button class="chip active" data-task="TASK-WEB-003" title="TASK-WEB-003 — Molecular Visualization via 3Dmol.js [ready_to_implement]">WEB-003</button><button class="chip active" data-task="TASK-WEB-004" title="TASK-WEB-004 — Quantum Orbital Rendering via React Three Fiber [ready_to_implement]">WEB-004</button><button class="chip active" data-task="TASK-WEB-005" title="TASK-WEB-005 — Constructivist Gamified Sandbox [ready_to_implement]">WEB-005</button><button class="chip active" data-task="TASK-WEB-006" title="TASK-WEB-006 — Liquid Glass Interface &amp; Design System Integration [ready_to_implement]">WEB-006</button></div>
-</section>
-
-  <nav class="bar" id="bar" aria-label="Search, filters and views">
-    <div class="bar-top">
-      <label class="srch">
-        <span class="ic" aria-hidden="true">⌕</span>
-        <input id="q" type="search" placeholder="Search 6 tasks — id, title, module, owner, phase…" autocomplete="off" spellcheck="false">
-      </label>
-      <div class="lenses" role="tablist" aria-label="View">
-        <button class="ln" role="tab" type="button" data-lens="board" aria-selected="true">▦ Board</button>
-        <button class="ln" role="tab" type="button" data-lens="table" aria-selected="false">☰ Table</button>
-        <button class="ln" role="tab" type="button" data-lens="timeline" aria-selected="false">◷ Releases</button>
-      </div>
-    </div>
-    <div class="bar-bot">
-      <label class="facet">module<select id="f-m"><option value="">all</option><option value="web">web</option></select></label>
-  <label class="facet">status<select id="f-s"><option value="">all</option><option value="ready_to_implement">ready_to_implement</option></select></label>
-  <label class="facet">priority<select id="f-p"><option value="">all</option><option value="MUST">MUST</option><option value="SHOULD">SHOULD</option></select></label>
-  <label class="facet">class<select id="f-c"><option value="">all</option><option value="product">product</option></select></label>
-  <label class="facet">phase<select id="f-ph"><option value="">all</option><option value="P1">P1</option></select></label>
-  <label class="facet">group by<select id="f-g"><option value="m">module</option><option value="ph">phase</option><option value="s">status</option><option value="p">priority</option><option value="c">class</option><option value="o">owner</option></select></label>
-      <button id="clear" class="btn ghost sm" type="button">Clear</button>
-      <output id="count" class="cnt" for="q"></output>
-    </div>
-    <div class="chipbar" id="active-filters" hidden></div>
-  </nav>
-
-  <div id="lens" class="lens" role="region" aria-live="polite" aria-label="Tasks"></div>
-
+<div id="app">
   <noscript>
-    <div class="nojs">
-<p class="relnote">JavaScript is off, so the lenses, filters and the task drawer are unavailable.
+    <div class="nojs wrap">
+<p class="relnote">JavaScript is off, so the interactive canvas and the task drawer are unavailable.
 Everything below is the same corpus, rendered statically.</p>
 <div class="tbl-wrap"><table><thead><tr>
 <th>id</th><th>title</th><th>module</th><th>class</th><th>priority</th><th>phase</th><th>status</th>
@@ -107,18 +30,21 @@ Everything below is the same corpus, rendered statically.</p>
 <h3 class="groupq">Releases</h3>
 <article class="rel"><span class="tick">✓</span><div>
   <div class="rel-h"><b>v0.1.0</b><span class="muted">2026-07-12</span></div>
-  
+
   <div class="rel-sec"><h4>Notes</h4><ul><li>CyberOS initialised: task workflow vendored to .cyberos/, backlog at docs/tasks/BACKLOG.md, status page at .cyberos/status.html.</li></ul></div>
 </div></article></div>
   </noscript>
+</div>
 
-  <footer class="ft">3d-preriodic-table — generated at unversioned (d244c7f6a348). Markdown is the record of truth; this page only renders it.</footer>
-</main>
+<aside class="ops-reports" aria-label="Operator reports">
+<section class="now" id="stuck-wip">
+  <h2>Stuck WIP (G13)</h2>
+  <p class="muted">As-of date unavailable (no CYBEROS_NOW / CYBEROS_HUB_ASOF and no dated CHANGELOG entry for VERSION unversioned) — age classification skipped. Detector stays report-only.</p>
+</section></aside>
 
-<div id="scrim" class="scrim" hidden></div>
-<aside id="drawer" class="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="dw-title"></aside>
+<footer class="gen-foot wrap">3d-preriodic-table — generated at unversioned (fp-a947b905019b). Markdown is the record of truth; this page only renders it. · <a href="status-legacy.html">Legacy status page</a></footer>
 
-<script type="application/json" id="cs-data">{"project":"3d-preriodic-table","version":"unversioned","commit":"d244c7f6a348","statuses":["draft","ready_to_implement","implementing","ready_to_review","reviewing","ready_to_test","testing","done","on_hold","closed"],"specDir":"data/task","frBase":"../tasks/","tasks":[{"i":"TASK-WEB-001","k":"TASK-WEB-001-project-scaffold","dm":"WEB","t":"Project Scaffold and Tech Stack Initialization","m":"web","c":"product","p":"MUST","s":"ready_to_implement","ph":"P1","ms":"P1 · slice 1","sl":"1","o":"AI","cr":"2026-06-08","e":"2","v":"T","r":"No foundation for the application to be built on.","st":[],"d":[],"b":["TASK-WEB-002","TASK-WEB-006"],"rl":[],"sm":"1. The project MUST be initialized using Vite with the React and TypeScript template. 2. Tailwind CSS MUST be configured with the CyberSkill DESIGN.md anchors (#45210E Umber, #F4BA17 Ochre). 3. The typography MUST be…","sp":1},{"i":"TASK-WEB-002","k":"TASK-WEB-002-pubchem-integration","dm":"WEB","t":"PubChem PUG REST API Integration for Chemical Data","m":"web","c":"product","p":"MUST","s":"ready_to_implement","ph":"P1","ms":"P1 · slice 1","sl":"1","o":"AI","cr":"2026-06-08","e":"4","v":"T","r":"Application will not have any chemical data to display.","st":[],"d":["TASK-WEB-001"],"b":["TASK-WEB-003"],"rl":[],"sm":"1. The application MUST integrate with the PubChem PUG REST API to fetch comprehensive periodic table data in CSV format. 2. The periodic table payload MUST be parsed into structured TypeScript objects containing…","sp":1},{"i":"TASK-WEB-003","k":"TASK-WEB-003-3dmol-visualization","dm":"WEB","t":"Molecular Visualization via 3Dmol.js","m":"web","c":"product","p":"MUST","s":"ready_to_implement","ph":"P1","ms":"P1 · slice 1","sl":"1","o":"AI","cr":"2026-06-08","e":"4","v":"T","r":"No ability to render complex organic chemistry molecular geometries.","st":[],"d":["TASK-WEB-002"],"b":["TASK-WEB-004","TASK-WEB-005"],"rl":[],"sm":"1. The application MUST integrate the 3dmol library to abstract complex WebGL primitives for molecular visualization. 2. A React component (MoleculeViewer) MUST be created to mount the 3Dmol.js canvas and inject the…","sp":1},{"i":"TASK-WEB-004","k":"TASK-WEB-004-quantum-orbital-rendering","dm":"WEB","t":"Quantum Orbital Rendering via React Three Fiber","m":"web","c":"product","p":"SHOULD","s":"ready_to_implement","ph":"P1","ms":"P1 · slice 1","sl":"1","o":"AI","cr":"2026-06-08","e":"6","v":"T","r":"Limits educational value by omitting subatomic geometries.","st":[],"d":["TASK-WEB-003"],"b":["TASK-WEB-005"],"rl":[],"sm":"1. The application MUST provide a secondary 3D viewer (OrbitalViewer) powered by react-three-fiber and three to render quantum mechanical probability clouds (atomic orbitals). 2. The viewer MUST accurately represent…","sp":1},{"i":"TASK-WEB-005","k":"TASK-WEB-005-gamified-sandbox","dm":"WEB","t":"Constructivist Gamified Sandbox","m":"web","c":"product","p":"MUST","s":"ready_to_implement","ph":"P1","ms":"P1 · slice 1","sl":"1","o":"AI","cr":"2026-06-08","e":"5","v":"T","r":"The application fails to meet the core educational gamification requirement.","st":[],"d":["TASK-WEB-003","TASK-WEB-004"],"b":["TASK-WEB-006"],"rl":[],"sm":"1. The application MUST implement an interactive \"Atom Builder\" sandbox where users can incrementally add protons, neutrons, and electrons. 2. The state of this sandbox MUST be managed globally (e.g., via Zustand) to…","sp":1},{"i":"TASK-WEB-006","k":"TASK-WEB-006-ui-and-design-system","dm":"WEB","t":"Liquid Glass Interface & Design System Integration","m":"web","c":"product","p":"MUST","s":"ready_to_implement","ph":"P1","ms":"P1 · slice 1","sl":"1","o":"AI","cr":"2026-06-08","e":"6","v":"T","r":"Application will not meet the aesthetic requirements of the client or the CyberSkill design system.","st":[],"d":["TASK-WEB-001","TASK-WEB-005"],"b":[],"rl":[],"sm":"1. The application MUST implement the \"Liquid Glass\" aesthetic utilizing CSS backdrop-filters, subtle borders, and soft shadows over a dynamic background. 2. The overarching layout MUST be a responsive dashboard…","sp":1}],"releases":[{"v":"0.1.0","vl":"v0.1.0","d":"2026-07-12","intro":[],"sec":[{"h":"Notes","items":["CyberOS initialised: task workflow vendored to .cyberos/, backlog at docs/tasks/BACKLOG.md, status page at .cyberos/status.html."]}],"cited":[],"dated":[]}],"bound":[]}</script>
+<script type="application/json" id="sv3-data">{"project":"3d-preriodic-table","version":"unversioned","feed":1,"snapshot":"2026-07-16","head":"527084a","coverageAsOf":"527084a","branch":"main","repoUrl":"https://github.com/zintaen/3d-preriodic-table","tags":[],"statuses":["draft","ready_to_implement","implementing","ready_to_review","reviewing","ready_to_test","testing","done","on_hold","closed","cannot_reproduce","duplicate"],"specBase":"../tasks/","rule":"Every change introduced by a commit must be linked to one or more tasks and reflected on the Status page and in the Release Notes. No exceptions.","enforcement":"Advisory today (commit-msg hook + CI range check). Ledger at docs/tasks/_state/commit-links.yaml for retroactive fixes.","tasks":[{"i":"TASK-WEB-001","k":"WEB/TASK-WEB-001-project-scaffold","t":"Project Scaffold and Tech Stack Initialization","m":"web","c":"product","p":"MUST","s":"ready_to_implement","b":"active","ph":"P1","o":"AI","cr":"2026-06-08","sh":null,"e":2,"d":[],"bl":["TASK-WEB-002","TASK-WEB-006"],"rl":[],"sm":"1. The project MUST be initialized using Vite with the React and TypeScript template. 2. Tailwind CSS MUST be configured with the CyberSkill DESIGN.md anchors (#45210E Umber, #F4BA17 Ochre). 3. The typography MUST be…","pg":"P1","sp":1},{"i":"TASK-WEB-002","k":"WEB/TASK-WEB-002-pubchem-integration","t":"PubChem PUG REST API Integration for Chemical Data","m":"web","c":"product","p":"MUST","s":"ready_to_implement","b":"active","ph":"P1","o":"AI","cr":"2026-06-08","sh":null,"e":4,"d":["TASK-WEB-001"],"bl":["TASK-WEB-003"],"rl":[],"sm":"1. The application MUST integrate with the PubChem PUG REST API to fetch comprehensive periodic table data in CSV format. 2. The periodic table payload MUST be parsed into structured TypeScript objects containing…","pg":"P1","sp":1},{"i":"TASK-WEB-003","k":"WEB/TASK-WEB-003-3dmol-visualization","t":"Molecular Visualization via 3Dmol.js","m":"web","c":"product","p":"MUST","s":"ready_to_implement","b":"active","ph":"P1","o":"AI","cr":"2026-06-08","sh":null,"e":4,"d":["TASK-WEB-002"],"bl":["TASK-WEB-004","TASK-WEB-005"],"rl":[],"sm":"1. The application MUST integrate the 3dmol library to abstract complex WebGL primitives for molecular visualization. 2. A React component (MoleculeViewer) MUST be created to mount the 3Dmol.js canvas and inject the…","pg":"P1","sp":1},{"i":"TASK-WEB-004","k":"WEB/TASK-WEB-004-quantum-orbital-rendering","t":"Quantum Orbital Rendering via React Three Fiber","m":"web","c":"product","p":"SHOULD","s":"ready_to_implement","b":"active","ph":"P1","o":"AI","cr":"2026-06-08","sh":null,"e":6,"d":["TASK-WEB-003"],"bl":["TASK-WEB-005"],"rl":[],"sm":"1. The application MUST provide a secondary 3D viewer (OrbitalViewer) powered by react-three-fiber and three to render quantum mechanical probability clouds (atomic orbitals). 2. The viewer MUST accurately represent…","pg":"P1","sp":1},{"i":"TASK-WEB-005","k":"WEB/TASK-WEB-005-gamified-sandbox","t":"Constructivist Gamified Sandbox","m":"web","c":"product","p":"MUST","s":"ready_to_implement","b":"active","ph":"P1","o":"AI","cr":"2026-06-08","sh":null,"e":5,"d":["TASK-WEB-003","TASK-WEB-004"],"bl":["TASK-WEB-006"],"rl":[],"sm":"1. The application MUST implement an interactive \"Atom Builder\" sandbox where users can incrementally add protons, neutrons, and electrons. 2. The state of this sandbox MUST be managed globally (e.g., via Zustand) to…","pg":"P1","sp":1},{"i":"TASK-WEB-006","k":"WEB/TASK-WEB-006-ui-and-design-system","t":"Liquid Glass Interface & Design System Integration","m":"web","c":"product","p":"MUST","s":"ready_to_implement","b":"active","ph":"P1","o":"AI","cr":"2026-06-08","sh":null,"e":6,"d":["TASK-WEB-001","TASK-WEB-005"],"bl":[],"rl":[],"sm":"1. The application MUST implement the \"Liquid Glass\" aesthetic utilizing CSS backdrop-filters, subtle borders, and soft shadows over a dynamic background. 2. The overarching layout MUST be a responsive dashboard…","pg":"P1","sp":1}],"modules":[{"id":"web","kind":"","total":6,"done":0,"active":6,"hold":0,"draft":0,"r":23,"x":490,"y":315}],"medges":[],"phases":[{"id":"P1","label":"P1","total":6,"done":0,"active":6,"start":"2026-06-08","lastShip":null}],"releases":[{"v":"0.1.0","d":"2026-07-12","notes":{"features":[],"fixes":[],"improvements":[{"x":"CyberOS initialised: task workflow vendored to .cyberos/, backlog at docs/tasks/BACKLOG.md, status page at .cyberos/status.html.","ids":[]}]},"cov":{"commits":[],"linked":0,"exempt":0,"unlinked":0}}],"unreleased":{"notes":{"features":[],"fixes":[],"improvements":[]},"cov":{"commits":[{"h":"527084a","d":"2026-07-16","s":"chore(ci): pin Node 24.18.0; upgrade Actions to Node-24 majors","ids":[],"k":"unlinked"},{"h":"1e2361c","d":"2026-07-16","s":"chore: require Node.js >=24; remove dangling agent skill links","ids":[],"k":"unlinked"},{"h":"fa0e374","d":"2026-07-16","s":"chore(cyberos): retire the FR vocabulary; adopt CyberOS 1.0.0 (rules_sha d9dbcc8a)","ids":[],"k":"unlinked"},{"h":"d244c7f","d":"2026-07-13","s":"chore(cyberos): adopt CyberOS 1.0.0 - status-hub@2 status page","ids":[],"k":"unlinked"},{"h":"2d6d345","d":"2026-07-13","s":"chore: adopt CyberOS 1.0 protocol - folder-per-FR layout, docs/status page, managed gitignore, status auto-sync","ids":[],"k":"unlinked"},{"h":"3f7c3a3","d":"2026-07-10","s":"cyberos: adopt unified feature-requests structure (init v0.1.0)","ids":[],"k":"unlinked"},{"h":"ffc0f22","d":"2026-06-13","s":"fix(L1-T1): guard localStorage access in DashboardLayout (test suite 10->11)","ids":[],"k":"unlinked"},{"h":"96c2a3b","d":"2026-06-11","s":"fix","ids":[],"k":"unlinked"},{"h":"c88fe51","d":"2026-06-09","s":"perf(bohr-model): use InstancedMesh for particles to reduce draw calls","ids":[],"k":"unlinked"},{"h":"1f5dbbe","d":"2026-06-09","s":"perf(canvas): implement frameloop=demand to reduce CPU usage","ids":[],"k":"unlinked"},{"h":"02b31c2","d":"2026-06-09","s":"fix","ids":[],"k":"unlinked"},{"h":"370d326","d":"2026-06-09","s":"refactor: strict typing, unused vars, and hooks purity fixes","ids":[],"k":"unlinked"},{"h":"ed9c06b","d":"2026-06-08","s":"feat: add light mode","ids":[],"k":"unlinked"},{"h":"fd7fb37","d":"2026-06-08","s":"feat: implement WOW factors - reaction lab, quantum orbitals, and emission spectra","ids":[],"k":"unlinked"},{"h":"fce0bd7","d":"2026-06-08","s":"feat: add 3D WOW factors and fix UI bugs","ids":[],"k":"unlinked"},{"h":"c87b56a","d":"2026-06-08","s":"fix: i18n bugs and layout for AtomBuilder","ids":[],"k":"unlinked"},{"h":"4cc73c2","d":"2026-06-08","s":"fix: resolve UI layout bugs and molecule viewer background","ids":[],"k":"unlinked"},{"h":"22c70ad","d":"2026-06-08","s":"feat: add fun & informative features for students","ids":[],"k":"unlinked"},{"h":"03e6e6b","d":"2026-06-08","s":"feat: complete 3D WebGL overhaul and full i18n support","ids":[],"k":"unlinked"},{"h":"8bc07f8","d":"2026-06-08","s":"fix: migrate to native tailwind v4 @theme and fix grid overlap","ids":[],"k":"unlinked"},{"h":"ff3d0d9","d":"2026-06-08","s":"fix: proxy pubchem api via vercel rewrites to avoid cors","ids":[],"k":"unlinked"},{"h":"b3b1847","d":"2026-06-08","s":"chore: cleanup .cyberos-memory and temporary scripts","ids":[],"k":"unlinked"},{"h":"5f0c0a6","d":"2026-06-08","s":"Initial commit with 3D Periodic Table","ids":[],"k":"unlinked"}],"linked":0,"exempt":0,"unlinked":23}},"burnup":[],"fp":"fp-0e46ab5b3caf","commit":"fp-a947b905019b","specDir":"data/task","frBase":"../tasks/","draft_staleness":{"total":0,"by_reason":[]},"stuck_wip":{"asof":null,"threshold_days":30,"stale":[],"unparseable":[],"asof_missing":true}}</script>
 <script defer src="assets/status.js"></script>
 </body>
 </html>
